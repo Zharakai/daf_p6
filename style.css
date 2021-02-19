@@ -1,0 +1,26 @@
+/*
+table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+*/
+/*
+tr {
+    display: flex;
+    flex-direction: column;
+}
+*/
+
+td {
+    height: 50px;
+    width: 50px;
+    border: black 1px solid;
+    text-align: center;
+}
+
+.gameContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
