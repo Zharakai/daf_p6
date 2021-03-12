@@ -1,16 +1,6 @@
-/*
 table {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    transform: rotateX(60deg) rotateZ(45deg);
 }
-*/
-/*
-tr {
-    display: flex;
-    flex-direction: column;
-}
-*/
 
 td {
     height: 50px;
@@ -23,4 +13,8 @@ td {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.disabledBox {
+    background-color: rgb(203, 203, 207);
 }
