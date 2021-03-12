@@ -31,7 +31,7 @@ class Map {
       const defaultSettings = {
           columnsNumber: 10,
           rowsNumber: 10,
-          percentageEmptyCells: 15
+          percentageDisabledCells: 15
       };
       Object.assign(this, {...defaultSettings, ...userSettings})
     }
@@ -40,10 +40,10 @@ class Map {
 const squareMap = new Map({
     columnsNumber: 11,
     rowsNumber: 11,
-    percentageEmptyCells: 10
+    percentageDisabledCells: 10
 });
 console.log(squareMap);
-const disabledBox = Math.floor((squareMap.columnsNumber*squareMap.rowsNumber) / squareMap.percentageEmptyCells);
+const disabledBox = Math.floor((squareMap.columnsNumber*squareMap.rowsNumber) / squareMap.percentageDisabledCells);
 
 let x = 0;
 let y = 0;
