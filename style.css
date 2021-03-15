@@ -1,23 +1,20 @@
 table {
-    transform: rotateX(60deg) rotateZ(45deg);
+  transform: rotateX(60deg) rotateZ(45deg);
 }
-
 
 td {
-    height: 50px;
-    width: 50px;
-    border: black 1px solid;
-    text-align: center;
+  height: 50px;
+  width: 50px;
+  border: black 1px solid;
+  text-align: center;
 }
-
 
 .gameContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-
 .disabledBox {
-    background-color: rgb(203, 203, 207);
+  background-color: rgb(203, 203, 207);
 }
