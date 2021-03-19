@@ -61,8 +61,18 @@ const squareMap = new Map({
 
 squareMap.generateMap();
 
-const disabledBox = Math.floor((squareMap.columnsNumber*squareMap.rowsNumber) / squareMap.percentageDisabledCells);
+const disabledBox = Math.floor((squareMap.columnsNumber*squareMap.rowsNumber) * (squareMap.percentageDisabledCells/100));
+console.log(Math.floor((squareMap.columnsNumber*squareMap.rowsNumber)));
 
+/**
+ * Disabled cell
+ * @loop
+ */
+for (let i = 0; i < disabledBox; i++) {
+    $(`td#${getRandomInt(squareMap.columnsNumber)}-${getRandomInt(squareMap.rowsNumber)}`).addClass("disabledBox");
+}
+
+/*
 let mapInObject = {};
 let mapInArray = [];
 let trArray = [];
@@ -83,13 +93,7 @@ console.log(mapInObject);
 console.log(trArray);
 console.log(tdArray);
 console.log(mapInArray);
-/**
- * Disabled cell
- * @loop
- */
-for (let i = 0; i < disabledBox; i++) {
-    $(`td#${getRandomInt(squareMap.columnsNumber)}-${getRandomInt(squareMap.rowsNumber)}`).addClass("disabledBox");
-}
+*/
 
 /**
  * Drop weapons
