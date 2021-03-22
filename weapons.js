@@ -7,5 +7,8 @@ class Weapon {
     }
 }
 
-const goultard = new Weapon("goultard", "sword", 25, "img");
-const raziel = new Weapon("raziel", "sword", 20, "img");
+const goultard = new Weapon("goultard", "sword", 25, "./sprites/goultard.png");
+const raziel = new Weapon("raziel", "sword", 20, "./sprites/raziel.png");
+
+const weapons = [goultard, raziel];
+//console.log(weapons);

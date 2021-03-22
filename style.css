@@ -18,3 +18,12 @@ td {
 .disabledBox {
   background-color: rgb(203, 203, 207);
 }
+
+img.weapon {
+  transform: rotate(-45deg);
+}
+
+.goultard {
+  max-height: 46px;
+}
+

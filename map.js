@@ -50,6 +50,39 @@ class Map {
                 }
             }
         }
+
+        const disabledBox = Math.floor((squareMap.columnsNumber*squareMap.rowsNumber) * (squareMap.percentageDisabledCells/100));
+
+        /**
+        * Disabled cell
+        * @loop
+        */
+        for (let i = 0; i < disabledBox; i++) {
+            $(`td#${getRandomInt(squareMap.columnsNumber)}-${getRandomInt(squareMap.rowsNumber)}`).addClass("disabledBox");
+        }
+
+        const notDisabledBox = ($('td').not('.disabledBox'));
+
+        /**
+        * Insert weapons
+        * @loop
+        */
+        weapons.forEach(weapon => {
+            let randomIndex = getRandomInt(notDisabledBox.length);
+            
+            if (notDisabledBox.eq(randomIndex)[0].childNodes.length < 1) {
+                console.log(notDisabledBox.eq(randomIndex));
+                notDisabledBox.eq(randomIndex).append(`<img class="weapon ${weapon.name}" src="${weapon.picture}">`);
+            } else if (notDisabledBox.eq(randomIndex)[0].childNodes.length > 1) {
+                randomIndex = getRandomInt(notDisabledBox.length);
+                notDisabledBox.eq(randomIndex).append(`<img class="weapon ${weapon.name}" src="${weapon.picture}">`);
+            }
+            //notDisabledBox.eq(randomIndex).append(`<img class="weapon ${weapon.name}" src="${weapon.picture}">`);
+        });
+
+        /**
+         * Insert players
+         */
     }
 }
 
@@ -61,16 +94,66 @@ const squareMap = new Map({
 
 squareMap.generateMap();
 
-const disabledBox = Math.floor((squareMap.columnsNumber*squareMap.rowsNumber) * (squareMap.percentageDisabledCells/100));
-console.log(Math.floor((squareMap.columnsNumber*squareMap.rowsNumber)));
+
+
+
+
+
+
+
+//const disabledBox = Math.floor((squareMap.columnsNumber*squareMap.rowsNumber) * (squareMap.percentageDisabledCells/100));
 
 /**
  * Disabled cell
  * @loop
  */
+/*
 for (let i = 0; i < disabledBox; i++) {
     $(`td#${getRandomInt(squareMap.columnsNumber)}-${getRandomInt(squareMap.rowsNumber)}`).addClass("disabledBox");
 }
+
+const notDisabledBox = ($('td').not('.disabledBox'));
+console.log(notDisabledBox.eq(getRandomInt(notDisabledBox.length)));
+*/
+
+/**
+ * Insert weapons
+ * @loop
+ */
+/*
+weapons.forEach(weapon => {
+    notDisabledBox.eq(getRandomInt(notDisabledBox.length)).append(`<img src="${weapon.picture}">`);
+});
+*/
+
+/* test for logical creation */
+
+/*
+console.log(squareMap.columnsNumber);
+
+let rowsArray = [];
+let columsArray = [];
+
+for (let i = 0; i < squareMap.rowsNumber; i++) {
+    rowsArray[i] = [];
+    //columsArray.push(rowsArray[i]);
+
+    for (let j = 0; j < squareMap.columnsNumber; j++) {
+        //rowsArray[i].push(columsArray[j]);
+        columsArray[j] = [];
+        let string = "0";
+        //columsArray.push([]);
+        columsArray[j].push(string , "0", "0", "0", "0", "0", "0", "0", "0", "0", "0",);
+        //rowsArray.push("0");
+    }
+
+    //rowsArray[i].push("0");
+}
+
+console.log(rowsArray);
+
+console.log(columsArray);
+*/
 
 /*
 let mapInObject = {};
