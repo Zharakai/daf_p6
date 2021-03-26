@@ -1,20 +1,8 @@
-let x = 0;
-let y = 0;
-
-/**
- * @function
- * @param {number} max 
- * @returns 
- */
-function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
-}
-
 /**
  * @class
  * @param
  */
-class Map {
+ class Map {
     constructor(settings) {
         this.registerSettings(settings);
     }
@@ -23,181 +11,168 @@ class Map {
       const defaultSettings = {
           columnsNumber: 10,
           rowsNumber: 10,
-          percentageDisabledCells: 15
+          percentageDisabledCells: 15,
+          weaponsCount : 5
       };
-      Object.assign(this, {...defaultSettings, ...userSettings})
-    }
-
-    generateMap() {
-        for (let i = 0; i < squareMap.rowsNumber; i++) {
-            const trElement = document.createElement("tr");
-            trElement.id = `row-${i}`;
-        
-            $("#myTable").append(trElement);
-        
-            for (let j = 0; j < squareMap.columnsNumber; j++) {
-                const tdElement = document.createElement("td");
-                tdElement.id = `${x}-${y}`;
-                //tdElement.innerHTML = tdElement.id
-                
-                $(`#row-${y}`).append(tdElement);
-                x++; // Go to right
-        
-                // Go to the next line
-                if ($(`#row-${y}`).children().length === squareMap.columnsNumber) {
-                    y++;
-                    x = 0;
-                }
-            }
-        }
-
-        const disabledBox = Math.floor((squareMap.columnsNumber*squareMap.rowsNumber) * (squareMap.percentageDisabledCells/100));
-
-        /**
-        * Disabled cell
-        * @loop
-        */
-        for (let i = 0; i < disabledBox; i++) {
-            $(`td#${getRandomInt(squareMap.columnsNumber)}-${getRandomInt(squareMap.rowsNumber)}`).addClass("disabledBox");
-        }
-
-        const notDisabledBox = ($('td').not('.disabledBox'));
-
-        /**
-        * Insert weapons
-        * @loop
-        */
-        weapons.forEach(weapon => {
-            let randomIndex = getRandomInt(notDisabledBox.length);
-            
-            if (notDisabledBox.eq(randomIndex)[0].childNodes.length < 1) {
-                console.log(notDisabledBox.eq(randomIndex));
-                notDisabledBox.eq(randomIndex).append(`<img class="weapon ${weapon.name}" src="${weapon.picture}">`);
-            } else if (notDisabledBox.eq(randomIndex)[0].childNodes.length > 1) {
-                randomIndex = getRandomInt(notDisabledBox.length);
-                notDisabledBox.eq(randomIndex).append(`<img class="weapon ${weapon.name}" src="${weapon.picture}">`);
-            }
-            //notDisabledBox.eq(randomIndex).append(`<img class="weapon ${weapon.name}" src="${weapon.picture}">`);
-        });
-
-        /**
-         * Insert players
-         */
+      Object.assign(this, {...defaultSettings, ...userSettings});
     }
 }
 
 const squareMap = new Map({
     columnsNumber: 11,
     rowsNumber: 11,
-    percentageDisabledCells: 10
+    percentageDisabledCells: 10,
+    weaponsCount : 4
 });
 
-squareMap.generateMap();
-
-
-
-
-
-
-
-
-//const disabledBox = Math.floor((squareMap.columnsNumber*squareMap.rowsNumber) * (squareMap.percentageDisabledCells/100));
-
-/**
- * Disabled cell
- * @loop
- */
-/*
-for (let i = 0; i < disabledBox; i++) {
-    $(`td#${getRandomInt(squareMap.columnsNumber)}-${getRandomInt(squareMap.rowsNumber)}`).addClass("disabledBox");
+function getRandomNumberBetweenRange(min, max) { 
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-const notDisabledBox = ($('td').not('.disabledBox'));
-console.log(notDisabledBox.eq(getRandomInt(notDisabledBox.length)));
-*/
-
-/**
- * Insert weapons
- * @loop
- */
-/*
-weapons.forEach(weapon => {
-    notDisabledBox.eq(getRandomInt(notDisabledBox.length)).append(`<img src="${weapon.picture}">`);
-});
-*/
-
-/* test for logical creation */
-
-/*
-console.log(squareMap.columnsNumber);
-
-let rowsArray = [];
-let columsArray = [];
-
-for (let i = 0; i < squareMap.rowsNumber; i++) {
-    rowsArray[i] = [];
-    //columsArray.push(rowsArray[i]);
-
-    for (let j = 0; j < squareMap.columnsNumber; j++) {
-        //rowsArray[i].push(columsArray[j]);
-        columsArray[j] = [];
-        let string = "0";
-        //columsArray.push([]);
-        columsArray[j].push(string , "0", "0", "0", "0", "0", "0", "0", "0", "0", "0",);
-        //rowsArray.push("0");
+function generateMap() {
+    let map = [];
+    for (let y = 0; y < squareMap.rowsNumber; y++) {
+        map[y] = [];
+        for (let x = 0; x < squareMap.columnsNumber; x++) {
+            map[y][x] = {x, y};
+        }
     }
-
-    //rowsArray[i].push("0");
+    return map;
 }
+console.log(generateMap());
 
-console.log(rowsArray);
-
-console.log(columsArray);
-*/
-
-/*
-let mapInObject = {};
-let mapInArray = [];
-let trArray = [];
-let tdArray = [];
-
-console.log(squareMap.rowsNumber);
-for (let i = 0; i < squareMap.rowsNumber; i++) {
-    trArray.push(`tr-${i}`);
-    tdArray.push([]);
-    //mapInObject.tr_1 = [];
-    //console.log(mapInObject);
-    Object.assign(mapInObject, {[i]: tdArray});
-    mapInArray.push([]);
-    mapInArray[i].push([]);
+function getRandomPosition() {
+    const x = getRandomNumberBetweenRange(0, squareMap.rowsNumber - 1);
+    const y = getRandomNumberBetweenRange(0, squareMap.columnsNumber - 1);
+    return {x, y};
 }
+//console.log(getRandomPosition());
 
-console.log(mapInObject);
-console.log(trArray);
-console.log(tdArray);
-console.log(mapInArray);
-*/
-
-/**
- * Drop weapons
- */
-/*
-if (!($(`td#${getRandomInt(squareMap.columnsNumber)}-${getRandomInt(squareMap.rowsNumber)}`).hasClass("disabledBox"))) {
-    $(`td#${getRandomInt(squareMap.columnsNumber)}-${getRandomInt(squareMap.rowsNumber)}`).append("<img class='goultard' src='./sprites/goultard.png'>");    
-    console.log("true")
-} else {
-    console.log($(`td#${getRandomInt(squareMap.columnsNumber)}-${getRandomInt(squareMap.rowsNumber)}`))
+function getRandomCell() {
+    const {x, y} = getRandomPosition();
+    //console.log(map[y][x]);
+    return map[y][x];
 }
-*/
+//console.log(getRandomCell());
 
-//console.log($("td").hasClass("disabledBox"));
-
-const disabledBoxList = [];
-
-for (let i = 0; i < $("td").length; i++) {
-    if (!(document.getElementsByTagName("td")[i].className === "disabledBox")) {
-        disabledBoxList.push($("td").eq(i));
+function getAvailableRandomCell(iteration = 0) {
+    const cell = getRandomCell();
+    if (iteration > (squareMap.rowsNumber * squareMap.columnsNumber)) {
+        throw new Error('plus de case disponible');
     }
+    //console.log(cell)
+    if (cell.wall || cell.weapon || cell.player) {
+        iteration++;
+        return getAvailableRandomCell(iteration);
+    }
+    //console.log(cell);
+    return cell;
+}
+//console.log(getAvailableRandomCell());
+
+function generateWeapons(baseMap) {
+    const map = baseMap;
+    for (let i = 0; i < squareMap.weaponsCount; i++) {
+        console.log("generateWeapons")
+        const cell = getAvailableRandomCell();
+        console.log(cell)
+        map[cell.y][cell.x].weapon = true;
+    }
+    return map;
 }
 
-//console.log(disabledBoxList);
+function generateWalls(baseMap) {
+    const map = baseMap;
+    const wallsToBuild = Math.floor((squareMap.rowsNumber * squareMap.columnsNumber) * (squareMap.percentageDisabledCells / 100));
+    for (let i = 0; i < wallsToBuild; i++) {
+        console.log("generateWalls")
+        const cell = getAvailableRandomCell();
+        console.log(cell);
+        map[cell.y][cell.x].wall = true;
+    }
+    console.log(map);
+    return map;
+}
+
+function placePlayer(player) {
+    console.log("placePlayer")
+    const cell = getAvailableRandomCell();
+    console.log(cell)
+    //console.log(map[cell.y][cell.x]);
+    //player.position = map[cell.y][cell.x];
+    //player.position = map[cell.y][cell.x];
+    player.position = {x: cell.x, y: cell.y};
+    //console.log(cell.y, cell.x);
+    map[cell.y][cell.x].player = player;
+    
+
+    // create new function
+    //console.log(map[cell.y - 1][cell.x]);
+    //console.log(map[cell.y + 1][cell.x]);
+    //console.log(map[cell.y][cell.x + 1]);
+    //console.log(map[cell.y][cell.x - 1]);
+
+    /*
+    if (cell.y-1 !== -1 || 
+        cell.y+1 !== squareMap.columnsNumber-1 ||
+        cell.x-1 !== -1 ||
+        cell.x+1 !== squareMap.rowsNumber-1) {
+            console.log(map[cell.y - 1][cell.x]);
+            console.log(map[cell.y + 1][cell.x]);
+            console.log(map[cell.y][cell.x + 1]);
+            console.log(map[cell.y][cell.x - 1]);
+    }
+    */
+    console.log(map);
+}
+
+function printMap(map) {
+    const table = document.querySelector('table');
+    const tbody = document.createElement('tbody');
+    map.forEach((row, indexY) => {
+        const tr = document.createElement('tr');
+        tr.dataset.y = indexY;
+        tbody.appendChild(tr);
+        row.forEach((cell, indexX) => {
+            const td = document.createElement('td');
+            td.dataset.x = indexX;
+            td.dataset.yx = `${indexY}-${indexX}`;
+            
+            if (cell.wall) {
+                td.classList.add('wall');
+            }
+            
+            if (cell.weapon) {
+                td.classList.add('weapon');
+            }
+
+            if (cell.player) {
+                td.classList.add('player');
+            }
+            
+            tr.appendChild(td);
+        });
+    });
+    table.appendChild(tbody);
+}
+
+let map = generateMap();
+map = generateWalls(map);
+map = generateWeapons(map);
+
+placePlayer(players[0]);
+console.log(players[0]);
+placePlayer(players[1]);
+console.log(players[1]);
+printMap(map);
+
+
+//squareMap.getRandomCell();
+//squareMap.printMap();
+
+//console.log(squareMap.generateMap());
+
+//let map = squareMap.generateMap();
+//map = generateWalls(map);
+//map = generateWeapons(map);
+//printMap(map);
