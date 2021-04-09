@@ -34,3 +34,27 @@ img.weapon {
 .goultard {
   max-height: 46px;
 }
+
+/* Player Card */
+
+.playerCardContainer {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 10%;
+  width: -webkit-fill-available;
+}
+
+.playerCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 2% 0 2%;
+  padding: 1% 1%;
+  background-color: rgb(189, 220, 255);
+}
+
+.playerCard p {
+  display: flex;
+  margin: 2% 0;
+}
