@@ -14,7 +14,7 @@ class Map {
             rowsNumber: 10,
             percentageDisabledCells: 15,
             weaponsCount: 5,
-            el: document.querySelector('table'),
+            el: document.querySelector("table"),
         };
         Object.assign(this, { ...defaultSettings, ...userSettings });
     }
