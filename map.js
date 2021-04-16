@@ -25,7 +25,7 @@ class Map {
         this.generateWeapons();
         this.placePlayer(players[0]);
         this.placePlayer(players[1]);
-        this.checkSiblingsCells();
+        this.checkPlayerPosition();
         this.printMap();
     }
 
@@ -53,19 +53,8 @@ class Map {
         return { x, y };
     }
 
-    getRandomPositionInInnerCells() {
-        const x = this.getRandomNumberBetweenRange(1, this.rowsNumber - 2);
-        const y = this.getRandomNumberBetweenRange(1, this.columnsNumber - 2);
-        return { x, y };
-    }
-
     getRandomCell() {
         const { x, y } = this.getRandomPosition();
-        return this.map[y][x];
-    }
-
-    getRandomInnerCells() {
-        const { x, y } = this.getRandomPositionInInnerCells();
         return this.map[y][x];
     }
 
@@ -83,75 +72,6 @@ class Map {
         return cell;
     }
 
-    getAvailableRandomCellWithoutSiblings() {
-        const cell = this.getAvailableRandomCell();
-        console.log(this.map[cell.x][cell.y]);
-        if (cell.x > 0 && cell.y > 0 || cell.x < this.columnsNumber - 2 && cell.y < this.rowsNumber - 2) {
-            console.log(this.map[cell.x - 1][cell.y].player);
-            console.log(this.map[cell.x][cell.y - 1].player);
-            console.log(this.map[cell.x + 1][cell.y].player);
-            console.log(this.map[cell.x][cell.y + 1].player);
-        }
-
-        if (
-            cell.y - 1 >= 0 &&
-            cell.y >= 0 &&
-            this.map[cell.y - 1][cell.x].player) {
-                console.log(this.map[cell.y - 1][cell.x]);
-        }
-        else if (
-            cell.y + 1 <= (this.rowsNumber - 1) &&
-            cell.y <= (this.rowsNumber - 1) &&
-            this.map[cell.y + 1][cell.x].player) {
-                
-        }
-        else if (
-            cell.x - 1 >= 0 &&
-            cell.x >= 0 &&
-            this.map[cell.y][cell.x - 1].player) {
-                
-        }
-        else if (
-            cell.x + 1 <= (this.columnsNumber - 1) &&
-            cell.x <= (this.columnsNumber - 1) &&
-            this.map[cell.y][cell.x + 1].player) {
-                
-        }
-        else if (
-            cell.y - 1 >= 0 &&
-            cell.y >= 0 &&
-            cell.x - 1 >= 0 &&
-            cell.x >= 0 && this.map[cell.y - 1][cell.x - 1].player) {
-                
-        }
-        else if (
-            cell.x + 1 <= (this.columnsNumber - 1) &&
-            cell.x <= (this.columnsNumber - 1) &&
-            cell.y + 1 <= (this.rowsNumber - 1) &&
-            cell.y <= (this.rowsNumber - 1) &&
-            this.map[cell.y + 1][cell.x + 1].player) {
-                
-        }
-        else if (
-            cell.y - 1 >= 0 &&
-            cell.y >= 0 &&
-            cell.x + 1 <= (this.columnsNumber - 1) &&
-            cell.x <= (this.columnsNumber - 1) &&
-            this.map[cell.y - 1][cell.x + 1].player) {
-                
-        }
-        else if (
-            cell.y + 1 <= (this.rowsNumber - 1) &&
-            cell.y <= (this.rowsNumber - 1) &&
-            cell.x - 1 >= 0 &&
-            cell.x >= 0 &&
-            this.map[cell.y + 1][cell.x - 1].player) {
-                
-        }
-
-        //return cell;
-    }
-
     generateWeapons() {
         for (let i = 0; i < this.weaponsCount; i++) {
             const cell = this.getAvailableRandomCell();
@@ -161,203 +81,45 @@ class Map {
 
     placePlayer(player) {
         const cell = this.getAvailableRandomCell(); // delete
-        const emptyCellSiblings = this.getAvailableRandomCellWithoutSiblings()
-        console.log(emptyCellSiblings);
+        //const emptyCellSiblings = this.getAvailableRandomCellWithoutSiblings()
+        //console.log(emptyCellSiblings);
         // getAvailableRandomCellWithoutSiblings
         player.position = { x: cell.x, y: cell.y };
         this.map[cell.y][cell.x].player = player;
     }
 
-    checkSiblingsCells() {
-        let cellOccupied = [];
-        console.log(this.map);
+    checkPlayerPosition() {
+        const playerPosition = [];
 
-        players.forEach((player, i) => {
-            const playerPosY = player.position.y;
-            const playerPosX = player.position.x;
-
-            console.log(this.map[playerPosY][playerPosX]);
-
-            if (playerPosY === (this.rowsNumber - 1) && playerPosX === 0 ||
-                playerPosY === (this.rowsNumber - 1) && playerPosX === (this.columnsNumber - 1) ||
-                playerPosY === 0 && playerPosX === 0 ||
-                playerPosY === 0 && playerPosX === (this.columnsNumber - 1)) {
-                console.log("Player in square end");
-            } else if (
-                playerPosY === 10 && playerPosX > 0 && playerPosX < (this.columnsNumber - 1) ||
-                playerPosX === 0 && playerPosY > 0 && playerPosY < (this.rowsNumber - 1) ||
-                playerPosY === 0 && playerPosX > 0 && playerPosX < (this.columnsNumber - 1) ||
-                playerPosX === 10 && playerPosY > 0 && playerPosY < (this.rowsNumber - 1)) {
-                console.log("Player in outlines cells");
-            } else if (playerPosY < (this.rowsNumber - 1) && playerPosY > 0 && playerPosX < (this.columnsNumber - 1) && playerPosX > 0) {
-                console.log("Player in inner cells");
-            }
-
-            /*
-            if (
-                playerPosY - 1 >= 0 && 
-                playerPosY >= 0 && 
-                playerPosY <= (this.rowsNumber - 1) && 
-                playerPosY + 1 <= (this.rowsNumber - 1) &&
-                playerPosX -1 >= 0 &&
-                playerPosX >= 0 &&
-                playerPosX <= (this.columnsNumber - 1) &&
-                playerPosX + 1 <= (this.columnsNumber - 1) ||
-                this.map[playerPosY - 1][playerPosX].player ||
-                this.map[playerPosY + 1][playerPosX].player ||
-                this.map[playerPosY][playerPosX + 1].player ||
-                this.map[playerPosY][playerPosX - 1].player ||
-                this.map[playerPosY - 1][playerPosX - 1].player ||
-                this.map[playerPosY - 1][playerPosX + 1].player ||
-                this.map[playerPosY + 1][playerPosX - 1].player ||
-                this.map[playerPosY + 1][playerPosX + 1].player) {
-                    //console.log('coucou voisin');
-                    
-                cellOccupied.push(
-                    this.map[playerPosY - 1][playerPosX] || 
-                    this.map[playerPosY + 1][playerPosX]) ||
-                    this.map[playerPosY][playerPosX + 1] ||
-                    this.map[playerPosY][playerPosX - 1] ||
-                    this.map[playerPosY - 1][playerPosX - 1] ||
-                    this.map[playerPosY - 1][playerPosX + 1] ||
-                    this.map[playerPosY + 1][playerPosX - 1] ||
-                    this.map[playerPosY + 1][playerPosX + 1]
-                    
-            }
-            */
-
-            if (
-                playerPosY - 1 >= 0 &&
-                playerPosY >= 0 &&
-                this.map[playerPosY - 1][playerPosX].player) {
-                    cellOccupied.push(this.map[playerPosY - 1][playerPosX].player);
-            }
-            else if (
-                playerPosY + 1 <= (this.rowsNumber - 1) &&
-                playerPosY <= (this.rowsNumber - 1) &&
-                this.map[playerPosY + 1][playerPosX].player) {
-                    cellOccupied.push(this.map[playerPosY + 1][playerPosX].player);
-            }
-            else if (
-                playerPosX - 1 >= 0 &&
-                playerPosX >= 0 &&
-                this.map[playerPosY][playerPosX - 1].player) {
-                    cellOccupied.push(this.map[playerPosY][playerPosX - 1].player);
-            }
-            else if (
-                playerPosX + 1 <= (this.columnsNumber - 1) &&
-                playerPosX <= (this.columnsNumber - 1) &&
-                this.map[playerPosY][playerPosX + 1].player) {
-                    cellOccupied.push(this.map[playerPosY][playerPosX + 1].player);
-            }
-            else if (
-                playerPosY - 1 >= 0 &&
-                playerPosY >= 0 &&
-                playerPosX - 1 >= 0 &&
-                playerPosX >= 0 && this.map[playerPosY - 1][playerPosX - 1].player) {
-                    cellOccupied.push(this.map[playerPosY - 1][playerPosX - 1].player);
-            }
-            else if (
-                playerPosX + 1 <= (this.columnsNumber - 1) &&
-                playerPosX <= (this.columnsNumber - 1) &&
-                playerPosY + 1 <= (this.rowsNumber - 1) &&
-                playerPosY <= (this.rowsNumber - 1) &&
-                this.map[playerPosY + 1][playerPosX + 1].player) {
-                    cellOccupied.push(this.map[playerPosY + 1][playerPosX + 1].player);
-            }
-            else if (
-                playerPosY - 1 >= 0 &&
-                playerPosY >= 0 &&
-                playerPosX + 1 <= (this.columnsNumber - 1) &&
-                playerPosX <= (this.columnsNumber - 1) &&
-                this.map[playerPosY - 1][playerPosX + 1].player) {
-                    cellOccupied.push(this.map[playerPosY - 1][playerPosX + 1].player);
-            }
-            else if (
-                playerPosY + 1 <= (this.rowsNumber - 1) &&
-                playerPosY <= (this.rowsNumber - 1) &&
-                playerPosX - 1 >= 0 &&
-                playerPosX >= 0 &&
-                this.map[playerPosY + 1][playerPosX - 1].player) {
-                    cellOccupied.push(this.map[playerPosY + 1][playerPosX - 1].player);
-            }
-
-            /*
-            if (playerPosY === 10 && playerPosX === 0) {          // Square end
-                console.log(this.map[playerPosY - 1][playerPosX]);
-                console.log(this.map[playerPosY][playerPosX + 1]);
-                console.log(this.map[playerPosY - 1][playerPosX + 1]);
-                
-                if (!!(this.map[playerPosY - 1][playerPosX].player) || !!(this.map[playerPosY][playerPosX + 1].player) || !!(this.map[playerPosY - 1][playerPosX + 1]).player) {
-                    console.log('Cellule voisine occupée');
+        this.map.forEach((element, i) => {
+            for (let j = 0; j < element.length; j++) {
+                if (this.map[i][j].player) {
+                    playerPosition.push(this.map[i][j]);
                 }
-                
-            } else if (playerPosY === 10 && playerPosX === 10) {  // Square end
-                console.log(this.map[playerPosY - 1][playerPosX]);
-                console.log(this.map[playerPosY - 1][playerPosX - 1]);
-                console.log(this.map[playerPosY][playerPosX - 1]);
-            } else if (playerPosY === 0 && playerPosX === 0) {    // Square end
-                console.log(this.map[playerPosY + 1][playerPosX]);
-                console.log(this.map[playerPosY][playerPosX + 1]);
-                console.log(this.map[playerPosY + 1][playerPosX + 1]);
-            } else if (playerPosY === 0 && playerPosX === 10) {   // Square end
-                console.log(this.map[playerPosY + 1][playerPosX]);
-                console.log(this.map[playerPosY][playerPosX - 1]);
-                console.log(this.map[playerPosY + 1][playerPosX - 1]);
-            } else if (playerPosY === 10 && playerPosX > 0 && playerPosX < 10) { // Outlines
-                console.log(this.map[playerPosY][playerPosX + 1]);
-                console.log(this.map[playerPosY][playerPosX - 1]);
-                console.log(this.map[playerPosY - 1][playerPosX]);
-                console.log(this.map[playerPosY - 1][playerPosX + 1]);
-                console.log(this.map[playerPosY - 1][playerPosX - 1]);
-            } else if (playerPosX === 0 && playerPosY > 0 && playerPosY < 10) { // Outlines
-                console.log(this.map[playerPosY][playerPosX + 1]);
-                console.log(this.map[playerPosY - 1][playerPosX]);
-                console.log(this.map[playerPosY - 1][playerPosX + 1]);
-                console.log(this.map[playerPosY + 1][playerPosX + 1]);
-                console.log(this.map[playerPosY + 1][playerPosX]);
-            } else if (playerPosY === 0 && playerPosX > 0 && playerPosX < 10) { // Outlines
-                console.log(this.map[playerPosY][playerPosX + 1]);
-                console.log(this.map[playerPosY][playerPosX - 1]);
-                console.log(this.map[playerPosY + 1][playerPosX]);
-                console.log(this.map[playerPosY + 1][playerPosX + 1]);
-                console.log(this.map[playerPosY + 1][playerPosX - 1]);
-            } else if (playerPosX === 10 && playerPosY > 0 && playerPosY < 10) { // Outlines
-                console.log(this.map[playerPosY][playerPosX - 1]);
-                console.log(this.map[playerPosY - 1][playerPosX]);
-                console.log(this.map[playerPosY + 1][playerPosX]);
-                console.log(this.map[playerPosY + 1][playerPosX - 1]);
-                console.log(this.map[playerPosY - 1][playerPosX - 1]);
-            } else if (playerPosY < 10 && playerPosY > 0 && playerPosX < 10  && playerPosX > 0) { // Inner cells
-                console.log(this.map[playerPosY - 1][playerPosX]);
-                console.log(this.map[playerPosY + 1][playerPosX]);
-                console.log(this.map[playerPosY][playerPosX + 1]);
-                console.log(this.map[playerPosY][playerPosX - 1]);
-                console.log(this.map[playerPosY - 1][playerPosX - 1]);
-                console.log(this.map[playerPosY - 1][playerPosX + 1]);
-                console.log(this.map[playerPosY + 1][playerPosX - 1]);
-                console.log(this.map[playerPosY + 1][playerPosX + 1]);
-
-                if (
-                    !!(this.map[playerPosY - 1][playerPosX].player) || 
-                    !!(this.map[playerPosY][playerPosX + 1].player) || 
-                    !!(this.map[playerPosY - 1][playerPosX + 1]).player || 
-                    !!(this.map[playerPosY + 1][playerPosX]).player ||
-                    !!(this.map[playerPosY][playerPosX - 1].player) ||
-                    !!(this.map[playerPosY - 1][playerPosX - 1].player) ||
-                    !!(this.map[playerPosY + 1][playerPosX - 1].player) ||
-                    !!(this.map[playerPosY + 1][playerPosX + 1].player)) {
-                    console.log('Cellule voisine occupée');
-                }
-
             }
-            */
         });
-        console.log(cellOccupied);
-        if (cellOccupied.length > 0) {
-            //alert("Joueurs replacés");
-            this.boot();
-            //$("table#myTable").children().eq(0).empty();
+
+        console.log(playerPosition);
+        console.log(playerPosition[0]);
+        console.log(playerPosition[1]);
+
+        if ((playerPosition[0].x === playerPosition[1].x || playerPosition[0].y === playerPosition[1].y))
+            /*(playerPosition[0].x > playerPosition[1].x || playerPosition[0].y > playerPosition[1].x))*/ {
+            console.log("It's not good !");
+            //console.log("New placement !");
+            console.log(this.map[playerPosition[1].y][playerPosition[1].x].player = false);
+            //this.placePlayer(players[1]);
+            console.log(playerPosition[0].player.name);
+            console.log(this.map);
+            if (playerPosition[0].player.name === players[0].name) {
+                console.log("Il ne reste plus qu'un Iop.");
+                this.placePlayer(players[1]);
+                this.checkPlayerPosition();
+            } else if (playerPosition[0].player.name === players[1].name) {
+                console.log("Il ne reste plus qu'un Steamer.");
+                this.placePlayer(players[0]);
+                this.checkPlayerPosition();
+            }
         }
     }
 
@@ -402,15 +164,3 @@ const squareMap = new Map({
     weaponsCount: 4,
     el: document.querySelector("table#myTable"),
 });
-
-
-
-//squareMap.getRandomCell();
-//squareMap.printMap();
-
-//console.log(squareMap.generateMap());
-
-//let map = squareMap.generateMap();
-//map = generateWalls(map);
-//map = generateWeapons(map);
-//printMap(map);
