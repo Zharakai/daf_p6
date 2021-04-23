@@ -120,7 +120,6 @@ class Map {
             console.log(playerPosition[i]);
             console.log(playerPosition[i].x);
             console.log(playerPosition[i].y);
-            
         }
     }
 
