@@ -26,6 +26,7 @@ class Map {
         this.placePlayer(players[0]);
         this.placePlayer(players[1]);
         this.checkPlayerPosition();
+        this.getAvailableCellsAroundPlayer()
         this.printMap();
     }
 
@@ -75,21 +76,18 @@ class Map {
     generateWeapons() {
         for (let i = 0; i < this.weaponsCount; i++) {
             const cell = this.getAvailableRandomCell();
-            this.map[cell.y][cell.x].weapon = true;
+            this.map[cell.y][cell.x].weapon = weapons[i];
         }
     }
 
     placePlayer(player) {
-        const cell = this.getAvailableRandomCell(); // delete
-        //const emptyCellSiblings = this.getAvailableRandomCellWithoutSiblings()
-        //console.log(emptyCellSiblings);
-        // getAvailableRandomCellWithoutSiblings
+        const cell = this.getAvailableRandomCell();
         player.position = { x: cell.x, y: cell.y };
         this.map[cell.y][cell.x].player = player;
     }
 
     checkPlayerPosition() {
-        const playerPosition = [];
+        //const playerPosition = [];
 
         this.map.forEach((element, i) => {
             for (let j = 0; j < element.length; j++) {
@@ -99,27 +97,30 @@ class Map {
             }
         });
 
-        console.log(playerPosition);
-        console.log(playerPosition[0]);
-        console.log(playerPosition[1]);
+        if ((playerPosition[0].x === playerPosition[1].x || playerPosition[0].y === playerPosition[1].y)) {
+            this.map[playerPosition[1].y][playerPosition[1].x].player = false;
 
-        if ((playerPosition[0].x === playerPosition[1].x || playerPosition[0].y === playerPosition[1].y))
-            /*(playerPosition[0].x > playerPosition[1].x || playerPosition[0].y > playerPosition[1].x))*/ {
-            console.log("It's not good !");
-            //console.log("New placement !");
-            console.log(this.map[playerPosition[1].y][playerPosition[1].x].player = false);
-            //this.placePlayer(players[1]);
-            console.log(playerPosition[0].player.name);
-            console.log(this.map);
             if (playerPosition[0].player.name === players[0].name) {
-                console.log("Il ne reste plus qu'un Iop.");
+                //console.log("0 Replacé !");
+                playerPosition = [];
                 this.placePlayer(players[1]);
                 this.checkPlayerPosition();
             } else if (playerPosition[0].player.name === players[1].name) {
-                console.log("Il ne reste plus qu'un Steamer.");
+                //console.log("1 Replacé !");
+                playerPosition = [];
                 this.placePlayer(players[0]);
                 this.checkPlayerPosition();
             }
+        }
+    }
+
+    getAvailableCellsAroundPlayer() {
+        console.log(playerPosition);
+        for (let i = 0; i < playerPosition.length; i++) {
+            console.log(playerPosition[i]);
+            console.log(playerPosition[i].x);
+            console.log(playerPosition[i].y);
+            
         }
     }
 
@@ -140,15 +141,20 @@ class Map {
 
                 if (cell.weapon) {
                     td.classList.add("weapon");
+                    $(td).append(`<img class="weapon weapon${cell.weapon.name}" src="${cell.weapon.picture}" alt="Arme ${cell.weapon.name}">`);
                 }
 
                 if (cell.player) {
                     td.classList.add("player");
+                    $(td).append(`<img class="player player${cell.player.name}" src="${cell.player.picture}" alt="Joueur ${cell.player.name}">`);
+
+                    //getAvailableCellsAroundPlayer();
                 }
 
                 tr.appendChild(td);
             });
         });
+        console.log(this.map);
         this.el.appendChild(tbody);
     }
 

@@ -7,10 +7,15 @@ class Player {
         this.shield = shield
         this.position = position;
     }
+
+    displayPlayerCard() {
+
+    }
 }
 
-const iop = new Player("Iop", goultard, "./sprites/iop.png", 100, 0, "");
-const steamer = new Player("Steamer", raziel, "./sprites/steamer.png", 100, 0, "");
+const iop = new Player("Iop", corbalame, "./sprites/iop.png", 100, 0, "");
+const steamer = new Player("Steamer", corbalame, "./sprites/steamer.png", 100, 0, "");
 
 const players = [iop, steamer];
+let playerPosition = [];
 //console.log(players)
