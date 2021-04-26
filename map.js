@@ -103,11 +103,13 @@ class Map {
             if (playerPosition[0].player.name === players[0].name) {
                 //console.log("0 Replacé !");
                 playerPosition = [];
+                availableCellsAroundPlayerOne = [];
                 this.placePlayer(players[1]);
                 this.checkPlayerPosition();
             } else if (playerPosition[0].player.name === players[1].name) {
                 //console.log("1 Replacé !");
                 playerPosition = [];
+                availableCellsAroundPlayerOne = [];
                 this.placePlayer(players[0]);
                 this.checkPlayerPosition();
             }
@@ -115,13 +117,101 @@ class Map {
     }
 
     getAvailableCellsAroundPlayer() {
-        console.log(playerPosition);
-        for (let i = 0; i < playerPosition.length; i++) {
-            console.log(playerPosition[i]);
-            console.log(playerPosition[i].x);
-            console.log(playerPosition[i].y);
-            
+        //console.log(playerPosition);
+
+        console.log(playerPosition[0]);
+        console.log(playerPosition[0].player.name);
+
+        if (playerPosition[0].x > 2 && playerPosition[0].y > 2 && playerPosition[0].x < 8 && playerPosition[0].y < 8) {
+
+            console.log(!!this.map[playerPosition[0].y][playerPosition[0].x + 1].wall);
+            if (!!this.map[playerPosition[0].y][playerPosition[0].x + 1].wall == false) {
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y][playerPosition[0].x + 1]);
+            }
+
+            console.log(!!this.map[playerPosition[0].y + 1][playerPosition[0].x].wall);
+            if (!!this.map[playerPosition[0].y + 1][playerPosition[0].x].wall == false) {
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y + 1][playerPosition[0].x]);
+            }
+
+            console.log(!!this.map[playerPosition[0].y][playerPosition[0].x - 1].wall);
+            if (!!this.map[playerPosition[0].y][playerPosition[0].x - 1].wall == false) {
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y][playerPosition[0].x - 1]);
+            }
+
+            console.log(!!this.map[playerPosition[0].y - 1][playerPosition[0].x].wall);
+            if (!!this.map[playerPosition[0].y - 1][playerPosition[0].x].wall == false) {
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y - 1][playerPosition[0].x]);
+            }
+            //console.log(this.map[playerPosition[0].y][playerPosition[0].x + 1].player);
         }
+
+        for (let i = 0; i < playerPosition.length; i++) {
+            //console.log(this.map[playerPosition[i].y][playerPosition[i].x]);
+            //console.log(playerPosition[i]);
+            //console.log(playerPosition[i].x);
+            //console.log(playerPosition[i].y);
+
+            if (playerPosition[i].x > 2 && playerPosition[i].y > 2 && playerPosition[i].x < 9 && playerPosition[i].y < 9) {
+                //console.log(this.map[playerPosition[i].y][playerPosition[i].x]);
+
+                for (let j = 1; j < 3; j++) {
+                    /*
+                    console.log(this.map[playerPosition[i].y][playerPosition[i].x + j]);
+                    console.log(this.map[playerPosition[i].y + j][playerPosition[i].x]);
+                    console.log(this.map[playerPosition[i].y][playerPosition[i].x - j]);
+                    console.log(this.map[playerPosition[i].y - j][playerPosition[i].x]);
+                    console.log(this.map[playerPosition[i].y + 1][playerPosition[i].x + j]);
+                    console.log(this.map[playerPosition[i].y + 2][playerPosition[i].x + j]);
+                    console.log(this.map[playerPosition[i].y + j][playerPosition[i].x + 1]);
+                    console.log(this.map[playerPosition[i].y + j][playerPosition[i].x + 2]);
+                    console.log(this.map[playerPosition[i].y - 1][playerPosition[i].x + j]);
+                    console.log(this.map[playerPosition[i].y - 2][playerPosition[i].x + j]);
+                    console.log(this.map[playerPosition[i].y + j][playerPosition[i].x - 1]);
+                    console.log(this.map[playerPosition[i].y + j][playerPosition[i].x - 2]);
+                    */
+
+                    //$(`td[data-yx="${this.map[playerPosition[i].y]}-${this.map[playerPosition[i].x + j]}"]`).addClass('move');
+                    //console.log($('td[data-yx="1-6"]'));
+
+                    //availableCellsAroundPlayer.push($(this.map[playerPosition[i].y][playerPosition[i].x + 1]));
+                }
+
+                /*
+                console.log(this.map[playerPosition[i].y][playerPosition[i].x + 1]);
+                console.log(this.map[playerPosition[i].y][playerPosition[i].x - 1]);
+                console.log(this.map[playerPosition[i].y + 1][playerPosition[i].x]);
+                console.log(this.map[playerPosition[i].y - 1][playerPosition[i].x]);
+                console.log(this.map[playerPosition[i].y + 1][playerPosition[i].x + 1]);
+                console.log(this.map[playerPosition[i].y + 1][playerPosition[i].x - 1]);
+                console.log(this.map[playerPosition[i].y - 1][playerPosition[i].x + 1]);
+                console.log(this.map[playerPosition[i].y][playerPosition[i].x + 2]);
+                console.log(this.map[playerPosition[i].y][playerPosition[i].x - 2]);
+                console.log(this.map[playerPosition[i].y + 2][playerPosition[i].x]);
+                console.log(this.map[playerPosition[i].y - 2][playerPosition[i].x]);
+                console.log(this.map[playerPosition[i].y + 2][playerPosition[i].x + 2]);
+                console.log(this.map[playerPosition[i].y + 2][playerPosition[i].x - 2]);
+                console.log(this.map[playerPosition[i].y - 2][playerPosition[i].x + 2]);
+                console.log(this.map[playerPosition[i].y][playerPosition[i].x + 3]);
+                console.log(this.map[playerPosition[i].y][playerPosition[i].x - 3]);
+                console.log(this.map[playerPosition[i].y + 3][playerPosition[i].x]);
+                console.log(this.map[playerPosition[i].y - 3][playerPosition[i].x]);
+                console.log(this.map[playerPosition[i].y + 3][playerPosition[i].x + 3]);
+                console.log(this.map[playerPosition[i].y + 3][playerPosition[i].x - 3]);
+                console.log(this.map[playerPosition[i].y - 3][playerPosition[i].x + 3]);
+                */
+
+                /*
+                console.log(this.map[playerPosition[i].y][playerPosition[i].x + 1].wall);
+                console.log(this.map[playerPosition[i].y][playerPosition[i].x - 1].wall);
+                console.log(this.map[playerPosition[i].y + 1][playerPosition[i].x].wall);
+                console.log(this.map[playerPosition[i].y - 1][playerPosition[i].x].wall);
+                */
+                //console.log(this.map[playerPosition[i].y + 1][playerPosition[i].x + 1]);
+                //console.log(this.map[playerPosition[i].y][playerPosition[i].x + 1]);
+            }
+        }
+        //console.log(availableCellsAroundPlayerOne);
     }
 
     printMap() {
@@ -148,14 +238,51 @@ class Map {
                     td.classList.add("player");
                     $(td).append(`<img class="player player${cell.player.name}" src="${cell.player.picture}" alt="Joueur ${cell.player.name}">`);
 
+                    //console.log(availableCellsAroundPlayerOne);
+
                     //getAvailableCellsAroundPlayer();
                 }
+
+                if (cell.player && cell.player.name == playerPosition[0].player.name) {
+                    console.log(availableCellsAroundPlayerOne);
+
+                    availableCellsAroundPlayerOne.forEach(availableCell => {
+                        console.log(availableCell);
+                        console.log(availableCell.x);
+                        console.log(availableCell.y);
+                        console.log($(td));
+
+                        tdAvailableAroundPlayerOne.push(`${availableCell.y}-${availableCell.x}`);
+                        //console.log($(td`[data-yx="${availableCell.y}-${availableCell.x}"]`));
+                        //$(`td[data-yx="${availableCell.y}-${availableCell.x}"]`).addClass('move');
+                    });
+
+                    /*
+                    if (cell.player.name == playerPosition[0].player.name)
+                    console.log(cell.player);
+                    console.log(cell.player.name);
+                    console.log(playerPosition[0].player.name);
+                    */
+                }
+
+                /*
+                if (cell.player.name == playerPosition[0].player.name) {
+                    console.log(availableCellsAroundPlayerOne);
+                }
+                */
 
                 tr.appendChild(td);
             });
         });
-        console.log(this.map);
         this.el.appendChild(tbody);
+
+        console.log(tdAvailableAroundPlayerOne);
+        tdAvailableAroundPlayerOne.forEach(td => {
+            $(`td[data-yx="${td}"]`).addClass('move');
+        });
+
+        //console.log(this.map);
+        //console.log($('td'));
     }
 
     getRandomNumberBetweenRange(min, max) {

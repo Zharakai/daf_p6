@@ -30,6 +30,10 @@ td {
   background-color: rgb(203, 203, 207);
 }
 
+.move {
+  background-color: rgb(231, 211, 185);
+}
+
 .playerIop, .playerSteamer {
   transform: rotateX(-60deg) rotateZ(333deg) rotateY(45deg) translate(-50%, -50%);
   position: absolute;
