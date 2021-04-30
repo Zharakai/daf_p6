@@ -121,7 +121,100 @@ class Map {
 
         console.log(playerPosition[0]);
         console.log(playerPosition[0].player.name);
+        console.log(playerPosition[0].x, playerPosition[0].y);
 
+        for (let i = 1; i < 4; i++) {
+
+            /*
+            if (playerPosition[0].x + i < 10 && !!this.map[playerPosition[0].y][playerPosition[0].x + i].wall == false) {
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y][playerPosition[0].x + i]);
+            } else 
+            if (playerPosition[0].y + i < 10 && !!this.map[playerPosition[0].y + i][playerPosition[0].x].wall == false) {
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y + i][playerPosition[0].x]);
+            } else
+            if (playerPosition[0].x - i > 0 && !!this.map[playerPosition[0].y][playerPosition[0].x - i].wall == false) {
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y][playerPosition[0].x - i]);
+            } else
+            if (playerPosition[0].y - i > 0 && !!this.map[playerPosition[0].y - i][playerPosition[0].x].wall == false) {
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y - i][playerPosition[0].x]);
+            }
+            */
+
+            /*
+            if (playerPosition[0].x + i > 10 || 
+                playerPosition[0].y + i > 10 ||
+                playerPosition[0].x - i < 0 ||
+                playerPosition[0].y - i < 0) {
+                return;
+            } else 
+            if (this.map[playerPosition[0].y][playerPosition[0].x + i].wall ||
+                this.map[playerPosition[0].y + i][playerPosition[0].x].wall ||
+                this.map[playerPosition[0].y][playerPosition[0].x - i].wall ||
+                this.map[playerPosition[0].y - i][playerPosition[0].x].wall) {
+                return
+            } else {
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y][playerPosition[0].x + i]);
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y + i][playerPosition[0].x]);
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y][playerPosition[0].x - i]);
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y - i][playerPosition[0].x]);
+            }
+            */
+
+            /*
+            if (playerPosition[0].x + i > 10 || this.map[playerPosition[0].y][playerPosition[0].x + i].wall) {
+                return;
+            } else 
+            if (playerPosition[0].y + i > 10 || this.map[playerPosition[0].y + i][playerPosition[0].x].wall) {
+                return;
+            } else
+            if (playerPosition[0].x - i > 10 || this.map[playerPosition[0].y][playerPosition[0].x - i].wall) {
+                return;
+            } else
+            if (playerPosition[0].y - i > 10 || this.map[playerPosition[0].y - i][playerPosition[0].x].wall) {
+                return;
+            } else {
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y][playerPosition[0].x + i]);
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y + i][playerPosition[0].x]);
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y][playerPosition[0].x - i]);
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y - i][playerPosition[0].x]);
+            }
+            */
+        }
+
+        for (let i = 1; i < 4; i++) {
+            
+            if (playerPosition[0].x + i <= 10 && this.map[playerPosition[0].y][playerPosition[0].x + i].wall) {
+                break;
+            } else if (playerPosition[0].x + i <= 10 && !!this.map[playerPosition[0].y][playerPosition[0].x + i].wall == false) {
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y][playerPosition[0].x + i]);
+            }
+        }
+
+        for (let i = 1; i < 4; i++) {
+            if (playerPosition[0].y + i <= 10 && this.map[playerPosition[0].y + i][playerPosition[0].x].wall) {
+                break;
+            } else if (playerPosition[0].y + i <= 10 && !!this.map[playerPosition[0].y + i][playerPosition[0].x].wall == false) {
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y + i][playerPosition[0].x]);
+            }
+        }
+
+        for (let i = 1; i < 4; i++) {
+            if (playerPosition[0].x - i >= 0 && this.map[playerPosition[0].y][playerPosition[0].x - i].wall) {
+                break;
+            } else if (playerPosition[0].x - i >= 0 && !!this.map[playerPosition[0].y][playerPosition[0].x - i].wall == false) {
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y][playerPosition[0].x - i]);
+            }
+        }
+
+        for (let i = 1; i < 4; i++) {
+            if (playerPosition[0].y - i >= 0 && this.map[playerPosition[0].y - i][playerPosition[0].x].wall) {
+                break;
+            } else if (playerPosition[0].y - i >= 0 && !!this.map[playerPosition[0].y - i][playerPosition[0].x].wall == false) {
+                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y - i][playerPosition[0].x]);
+            }
+        }
+
+        /*
         if (playerPosition[0].x > 2 && playerPosition[0].y > 2 && playerPosition[0].x < 8 && playerPosition[0].y < 8) {
 
             console.log(!!this.map[playerPosition[0].y][playerPosition[0].x + 1].wall);
@@ -145,6 +238,7 @@ class Map {
             }
             //console.log(this.map[playerPosition[0].y][playerPosition[0].x + 1].player);
         }
+        */
 
         for (let i = 0; i < playerPosition.length; i++) {
             //console.log(this.map[playerPosition[i].y][playerPosition[i].x]);
