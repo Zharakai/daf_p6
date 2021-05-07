@@ -22,4 +22,8 @@ let playerPosition = [];
 let availableCellsAroundPlayerOne = [];
 let tdAvailableAroundPlayerOne = [];
 
-//console.log(players)
+/*
+console.log(players);
+console.log(availableCellsAroundPlayerOne);
+console.log(tdAvailableAroundPlayerOne);
+*/
