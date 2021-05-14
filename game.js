@@ -1,10 +1,10 @@
 class Game {
     constructor() {
         this.map = map;
-        //this.player();
         this.getAvailableCellsAroundPlayer();
         this.playerTurn();
         this.printMove();
+        //this.player();
     }
     // player turn 0 / 1
     //let playerTurn = 0;
@@ -63,6 +63,10 @@ class Game {
         */
     }
 
+    setPlayerPosition(player) {
+        this.player = player;
+    }
+
     printMove() {
         availableCellsAroundPlayerOne.forEach(availableCell => {
             tdAvailableAroundPlayerOne.push(`${availableCell.y}-${availableCell.x}`);
@@ -76,21 +80,31 @@ class Game {
         //console.log(tdAvailableAroundPlayerOne);
 
         $('.move').on('click', function() {
-            console.log($(this));
-
             let newCoordinates = [];
             newCoordinates = $(this).attr('data-yx').split('-');
-            
-            //let y = $(this).attr('data-yx');
-            //let x = $(this).attr('data-yx');
-            
-            console.log(newCoordinates);
-            console.log(playerPosition[0].player);
-            console.log(playerPosition[0].player.position);
-            
+
+            if ($(this).hasClass("weapon")) {
+                console.log("Weapon found !");
+            }
+
+            $(`td[data-yx = "${playerPosition[0].player.position.y}-${playerPosition[0].player.position.x}"]`).removeClass('player').empty();
             $('.move').removeClass('move');
+            
+            playerPosition[0].player.position.x = parseInt(newCoordinates[1]);
+            playerPosition[0].player.position.y = parseInt(newCoordinates[0]);
+
+            this.classList.add("player");
+            $(this).append(`<img class="player player${playerPosition[0].player.name}" src="${playerPosition[0].player.picture}" alt="Joueur ${playerPosition[0].player.name}">`);
         });
-    }
+
+        //console.log($(this));
+        //let y = $(this).attr('data-yx');
+        //let x = $(this).attr('data-yx');
+
+        //console.log(playerPosition[0].player.position);
+        //console.log(playerPosition[0].player);
+        //console.log(newCoordinates);
+    }     
 }
 
 const playGame = new Game();
