@@ -205,6 +205,10 @@ class Map {
     }
 }
 
+// map.js
+//const currentPlayer = window.Game.getCurrentPlayer();
+//console.log(currentPlayer);
+
 const squareMap = new Map({
     columnsNumber: 11,
     rowsNumber: 11,
