@@ -25,8 +25,9 @@ class Map {
         this.generateMap();
         this.generateWalls();
         this.generateWeapons();
-        this.placePlayer(players[0]);
-        this.placePlayer(players[1]);
+        console.log(window.Game);
+        this.placePlayer(window.Game.players[0]);
+        this.placePlayer(window.Game.players[1]);
         this.checkPlayerPosition();
         //this.getAvailableCellsAroundPlayer();
         this.printMap();
@@ -209,6 +210,7 @@ class Map {
 //const currentPlayer = window.Game.getCurrentPlayer();
 //console.log(currentPlayer);
 
+/*
 const squareMap = new Map({
     columnsNumber: 11,
     rowsNumber: 11,
@@ -216,3 +218,4 @@ const squareMap = new Map({
     weaponsCount: 4,
     el: document.querySelector("table#myTable"),
 });
+*/
