@@ -1,4 +1,5 @@
 let map;
+let currentPlayer;
 
 /**
  * @class
@@ -25,11 +26,12 @@ class Map {
         this.generateMap();
         this.generateWalls();
         this.generateWeapons();
-        console.log(window.Game);
+        //console.log(window.Game);
         this.placePlayer(window.Game.players[0]);
         this.placePlayer(window.Game.players[1]);
         this.checkPlayerPosition();
         //this.getAvailableCellsAroundPlayer();
+        currentPlayer = window.Game.getCurrentPlayer();
         this.printMap();
     }
 
@@ -90,6 +92,7 @@ class Map {
     }
 
     checkPlayerPosition() {
+        // TODO: Check position display when replaced
         //const playerPosition = [];
 
         this.map.forEach((element, i) => {
@@ -119,41 +122,85 @@ class Map {
         }
     }
 
-    /*
-    getAvailableCellsAroundPlayer() {
+    getAvailableCellsAroundPlayer(player) {
+        const availableCellsAroundPlayer = [];
+        //console.log(player);
         for (let i = 1; i < 4; i++) {
-            if (playerPosition[0].x + i <= 10 && (this.map[playerPosition[0].y][playerPosition[0].x + i].wall || this.map[playerPosition[0].y][playerPosition[0].x + i].player)) {
+            if (player.position.x + i <= 10 && (this.map.map[player.position.y][player.position.x + i].wall || this.map.map[player.position.y][player.position.x + i].player)) {
                 break;
-            } else if (playerPosition[0].x + i <= 10 && !!this.map[playerPosition[0].y][playerPosition[0].x + i].wall == false) {
-                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y][playerPosition[0].x + i]);
+            } else if (player.position.x + i <= 10 && !!this.map.map[player.position.y][player.position.x + i].wall == false) {
+                availableCellsAroundPlayer.push(this.map.map[player.position.y][player.position.x + i]);
             }
         }
 
         for (let i = 1; i < 4; i++) {
-            if (playerPosition[0].y + i <= 10 && (this.map[playerPosition[0].y + i][playerPosition[0].x].wall || this.map[playerPosition[0].y + i][playerPosition[0].x].player)) {
+            if (player.position.y + i <= 10 && (this.map.map[player.position.y + i][player.position.x].wall || this.map.map[player.position.y + i][player.position.x].player)) {
                 break;
-            } else if (playerPosition[0].y + i <= 10 && !!this.map[playerPosition[0].y + i][playerPosition[0].x].wall == false) {
-                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y + i][playerPosition[0].x]);
+            } else if (player.position.y + i <= 10 && !!this.map.map[player.position.y + i][player.position.x].wall == false) {
+                availableCellsAroundPlayer.push(this.map.map[player.position.y + i][player.position.x]);
             }
         }
 
         for (let i = 1; i < 4; i++) {
-            if (playerPosition[0].x - i >= 0 && (this.map[playerPosition[0].y][playerPosition[0].x - i].wall || this.map[playerPosition[0].y][playerPosition[0].x - i].player)) {
+            if (player.position.x - i >= 0 && (this.map.map[player.position.y][player.position.x - i].wall || this.map.map[player.position.y][player.position.x - i].player)) {
                 break;
-            } else if (playerPosition[0].x - i >= 0 && !!this.map[playerPosition[0].y][playerPosition[0].x - i].wall == false) {
-                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y][playerPosition[0].x - i]);
+            } else if (player.position.x - i >= 0 && !!this.map.map[player.position.y][player.position.x - i].wall == false) {
+                availableCellsAroundPlayer.push(this.map.map[player.position.y][player.position.x - i]);
             }
         }
 
         for (let i = 1; i < 4; i++) {
-            if (playerPosition[0].y - i >= 0 && (this.map[playerPosition[0].y - i][playerPosition[0].x].wall || this.map[playerPosition[0].y - i][playerPosition[0].x].player)) {
+            if (player.position.y - i >= 0 && (this.map.map[player.position.y - i][player.position.x].wall || this.map.map[player.position.y - i][player.position.x].player)) {
                 break;
-            } else if (playerPosition[0].y - i >= 0 && !!this.map[playerPosition[0].y - i][playerPosition[0].x].wall == false) {
-                availableCellsAroundPlayerOne.push(this.map[playerPosition[0].y - i][playerPosition[0].x]);
+            } else if (player.position.y - i >= 0 && !!this.map.map[player.position.y - i][player.position.x].wall == false) {
+                availableCellsAroundPlayer.push(this.map.map[player.position.y - i][player.position.x]);
             }
         }
+        return availableCellsAroundPlayer;
     }
-    */
+
+    printMove() {
+        const availableCellsAroundPlayer = this.getAvailableCellsAroundPlayer(this.getCurrentPlayer());
+        const tdAvailableAroundPlayer = [];
+
+        availableCellsAroundPlayer.forEach(availableCell => {
+            tdAvailableAroundPlayer.push(`${availableCell.y}-${availableCell.x}`);
+        });
+
+        tdAvailableAroundPlayer.forEach(td => {
+            $(`td[data-yx="${td}"]`).addClass('move');
+        });
+
+        //console.log(availableCellsAroundPlayer);
+        //console.log(tdAvailableAroundPlayer);
+
+        return new Promise((resolve) => {
+            $('.move').on('click', (element) => {
+                console.log(element);
+                let newCoordinates = [];
+                newCoordinates = $(element.currentTarget).attr('data-yx').split('-');
+
+                if ($(this).hasClass("weapon")) {
+                    console.log("Weapon found !");
+                }
+
+                $(`td[data-yx = "${this.getCurrentPlayer().position.y}-${this.getCurrentPlayer().position.x}"]`).removeClass('player').empty();
+                $('.move').off('click');
+                $('.move').removeClass('move');
+
+                this.getCurrentPlayer().position.x = parseInt(newCoordinates[1]);
+                this.getCurrentPlayer().position.y = parseInt(newCoordinates[0]);
+
+                element.currentTarget.classList.add("player");
+                $(element.currentTarget).append(`<img class="player player${this.getCurrentPlayer().name}" src="${this.getCurrentPlayer().picture}" alt="Joueur ${this.getCurrentPlayer().name}">`);
+
+                //this.switchCurrentPlayerTurn();
+                console.log(players);
+
+                resolve();
+            });
+        });
+    }
 
     printMap() {
         map = this.map;
@@ -208,7 +255,6 @@ class Map {
 
 // map.js
 //const currentPlayer = window.Game.getCurrentPlayer();
-//console.log(currentPlayer);
 
 /*
 const squareMap = new Map({

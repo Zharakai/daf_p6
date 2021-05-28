@@ -19,6 +19,8 @@ class Game {
             weaponsCount: 4,
             el: document.querySelector("table#myTable"),
         });
+
+        console.log(window.Game);
         
         this.gameLoop();
     }
@@ -35,10 +37,12 @@ class Game {
         console.log(this.playerTurn);
     }
 
+    /*
     getAvailableCellsAroundPlayer(player) { //map.js
         // TODO: move to map.js
         const availableCellsAroundPlayer = [];
-        console.log(player.position);
+        //console.log(player.position);
+        console.log(player);
         for (let i = 1; i < 4; i++) {
             if (player.position.x + i <= 10 && (this.map.map[player.position.y][player.position.x + i].wall || this.map.map[player.position.y][player.position.x + i].player)) {
                 break;
@@ -92,7 +96,7 @@ class Game {
 
         return new Promise((resolve) => {
             $('.move').on('click', (element) => {
-                console.log(element);
+                //console.log(element);
                 let newCoordinates = [];
                 newCoordinates = $(element.currentTarget).attr('data-yx').split('-');
 
@@ -117,7 +121,7 @@ class Game {
             });
         });
     }
-    
+    */
     
     async gameLoop() {
         while (true) {
@@ -134,3 +138,5 @@ class Game {
 }
 
 const playGame = new Game();
+
+console.log(currentPlayer);
