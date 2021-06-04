@@ -26,15 +26,13 @@ class Game {
     }
 
     getCurrentPlayer() {
-        //console.log(this.players);
-        //console.log(player.position[0]);
         //console.log(this.players[this.playerTurn]);
         return this.players[this.playerTurn];
     }
 
     switchCurrentPlayerTurn() {
         this.playerTurn = +!this.playerTurn;
-        console.log(this.playerTurn);
+        //console.log(this.playerTurn);
     }
 
     /*
@@ -128,15 +126,13 @@ class Game {
           //if (this.map.playersAside()) {
             //code combat
           //} else {
-            await this.printMove() //this.map.displayAvailableMoveCells(); //affiche les cases sur lesquelles on peut se déplacer et mets en place l'eventlistener
+            await this.map.printMove(); //this.map.displayAvailableMoveCells(); //affiche les cases sur lesquelles on peut se déplacer et mets en place l'eventlistener
             //this.map.clearAvailableMoveCells();
           //}
+          // switchWeapon
           this.switchCurrentPlayerTurn();
         }
     }
-    
 }
 
 const playGame = new Game();
-
-console.log(currentPlayer);

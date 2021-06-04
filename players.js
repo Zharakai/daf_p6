@@ -8,9 +8,9 @@ class Player {
         this.position = position;
     }
 
-    displayPlayerCard() {
+    // displayPlayerCard() {}
 
-    }
+    // getAllDamages() {}
 }
 
 const iop = new Player("Iop", corbalame, "./sprites/iop.png", 100, 0, "");
@@ -18,7 +18,7 @@ const steamer = new Player("Steamer", corbalame, "./sprites/steamer.png", 100, 0
 
 const players = [iop, steamer];
 
-let playerPosition = [];
+//let playerPosition = [];
 let availableCellsAroundPlayerOne = [];
 let tdAvailableAroundPlayerOne = [];
 
