@@ -58,7 +58,7 @@ class Map {
     }
 
     getRandomCell() {
-        const { x, y } = this.getRandomPosition();
+        const {x, y} = this.getRandomPosition();
         return this.map[y][x];
     }
 
@@ -76,7 +76,7 @@ class Map {
         return cell;
     }
 
-     getValidRandomSpawnCell(iteration = 0) {
+    getValidRandomSpawnCell(iteration = 0) {
         const cell = this.getAvailableRandomCell();
         // Check 
 
@@ -84,23 +84,52 @@ class Map {
             throw new Error("Plus aucune case disponible");
         }
 
-        //this.checkPlayerAroundPos(cell);
+        //console.log(cell);
+        //console.log(this.map[cell.y][cell.x]);
+
+        this.checkPlayerAroundPos(cell);
 
         /*
-        if (/*Check/Get around cell.x cell.y) {
+        if (this.checkPlayerAroundPos(this.map[cell.y][cell.x])) {
             iteration++;
             return this.getValidRandomSpawnCell(iteration);
-
-            
         }
         */
+
+        //this.checkPlayerAroundPos(cell);
+
         return cell;
     }
 
     // getPlayerAroundPos() return player | false
 
     checkPlayerAroundPos(cell) {
-        console.log(this.map[cell.y][cell.x]);
+        if (cell.y > 0 && cell.y < 10 && cell.x > 0 && cell.y < 10) {
+            console.log(this.map[cell.y - 1][cell.x]);
+            console.log(this.map[cell.y][cell.x - 1]);
+            console.log(this.map[cell.y - 1][cell.x - 1]);
+            console.log(this.map[cell.y + 1][cell.x]);
+            console.log(this.map[cell.y][cell.x + 1]);
+            console.log(this.map[cell.y + 1][cell.x + 1]);
+            console.log(this.map[cell.y + 1][cell.x - 1]);
+            console.log(this.map[cell.y - 1][cell.x + 1]);
+        } else if (cell.y === 0 && cell.x === 0) {
+            console.log(this.map[cell.y][cell.x + 1]);
+            console.log(this.map[cell.y + 1][cell.x]);
+            console.log(this.map[cell.y + 1][cell.x + 1]);
+        } else if (cell.y === 0 && cell.x === 10) {
+            console.log(this.map[cell.y + 1][cell.x]);
+            console.log(this.map[cell.y + 1][cell.x + 1]);
+            console.log(this.map[cell.y][cell.x - 1]);
+        } else if (cell.y === 10 && cell.x === 0) {
+            console.log(this.map[cell.y - 1][cell.x]);
+            console.log(this.map[cell.y - 1][cell.x - 1]);
+            console.log(this.map[cell.y][cell.x + 1]);
+        } else if (cell.y === 10 && cell.x === 10) {
+            console.log(this.map[cell.y - 1][cell.x]);
+            console.log(this.map[cell.y - 1][cell.x - 1]);
+            console.log(this.map[cell.y][cell.x - 1]);
+        }
 
         //true | false
     }
@@ -116,7 +145,7 @@ class Map {
         const cell = this.getAvailableRandomCell(); //this.getValidRandomSpawnCell()
         player.position = { x: cell.x, y: cell.y };
         const spawnCell = this.getValidRandomSpawnCell();
-        console.log(spawnCell);
+        //console.log(spawnCell);
         
         /*
         if (player.name === window.Game.players[1].name) {
