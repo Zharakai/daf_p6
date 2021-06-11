@@ -1,6 +1,5 @@
 let map;
 let currentPlayer;
-
 let availableCellsAroundPlayer = [];
 
 /**
@@ -28,14 +27,10 @@ class Map {
         this.generateMap();
         this.generateWalls();
         this.generateWeapons();
-        //console.log(window.Game);
         this.placePlayer(window.Game.players[0]);
         this.placePlayer(window.Game.players[1]);
-        this.checkPlayerPosition();
-        //this.getAvailableCellsAroundPlayer();
+        //this.checkPlayerPosition();
         this.printMap();
-        //switchCurrentPlayerTurn = window.Game.switchCurrentPlayerTurn();
-        //printMove = window.Game.printMove();
     }
 
     generateMap() {
@@ -81,6 +76,35 @@ class Map {
         return cell;
     }
 
+     getValidRandomSpawnCell(iteration = 0) {
+        const cell = this.getAvailableRandomCell();
+        // Check 
+
+        if (iteration > (this.rowsNumber * this.columnsNumber)) {
+            throw new Error("Plus aucune case disponible");
+        }
+
+        //this.checkPlayerAroundPos(cell);
+
+        /*
+        if (/*Check/Get around cell.x cell.y) {
+            iteration++;
+            return this.getValidRandomSpawnCell(iteration);
+
+            
+        }
+        */
+        return cell;
+    }
+
+    // getPlayerAroundPos() return player | false
+
+    checkPlayerAroundPos(cell) {
+        console.log(this.map[cell.y][cell.x]);
+
+        //true | false
+    }
+
     generateWeapons() {
         for (let i = 0; i < this.weaponsCount; i++) {
             const cell = this.getAvailableRandomCell();
@@ -89,18 +113,25 @@ class Map {
     }
 
     placePlayer(player) {
-        const cell = this.getAvailableRandomCell();
-        //player.position = { x: cell.x, y: cell.y };
+        const cell = this.getAvailableRandomCell(); //this.getValidRandomSpawnCell()
+        player.position = { x: cell.x, y: cell.y };
+        const spawnCell = this.getValidRandomSpawnCell();
+        console.log(spawnCell);
         
+        /*
         if (player.name === window.Game.players[1].name) {
-            const playerOnePosition = window.Game.players[0].position;
+            const playerZeroPosition = window.Game.players[0].position;
             console.log("2nd player");
             console.log( cell.x, cell.y);
-            console.log(playerOnePosition);
-            if (playerOnePosition.x === cell.x || playerOnePosition.y === cell.y) {
+            console.log(playerZeroPosition);
+            if (playerZeroPosition.x === cell.x || playerZeroPosition.y === cell.y) {
                 console.log("Joueurs sur la même ligne");
+                //this.placePlayer(window.Game.players[0]);
                 this.placePlayer(window.Game.players[1]);
-                this.map[playerOnePosition.y][playerOnePosition.x].player = false;
+                this.map[playerZeroPosition.y][playerZeroPosition.x].player = false;
+                console.log(players);
+                console.log(this.map);
+                console.log(this.map[playerZeroPosition.y][playerZeroPosition.x]);
             }
 
             player.position = { x: cell.x, y: cell.y };
@@ -111,8 +142,9 @@ class Map {
         }
         //console.log(player.name);
         //console.log(window.Game.players[1]);
+        */
         
-        //this.map[cell.y][cell.x].player = player;
+        this.map[cell.y][cell.x].player = player;
     }
 
     /*
@@ -226,31 +258,19 @@ class Map {
                     $(td).append(`<img class="player player${cell.player.name}" src="${cell.player.picture}" alt="Joueur ${cell.player.name}">`);
                 }
 
-                /*
-                if (cell.player && cell.player.name == playerPosition[0].player.name) {
-
-                    availableCellsAroundPlayerOne.forEach(availableCell => {
-                        tdAvailableAroundPlayerOne.push(`${availableCell.y}-${availableCell.x}`);
-                    });
-                }
-                */
                 tr.appendChild(td);
             });
         });
         this.el.appendChild(tbody);
-
-        /*
-        tdAvailableAroundPlayerOne.forEach(td => {
-            $(`td[data-yx="${td}"]`).addClass('move');
-        });
-        */
     }
 
     printMove() {
-        const currentPlayer = window.Game.getCurrentPlayer()
-        //console.log(currentPlayer)
+        currentPlayer = window.Game.getCurrentPlayer();
+        const currentPlayerWeapon = currentPlayer.weapon;
         const availableCellsAroundPlayer = this.getAvailableCellsAroundPlayer(currentPlayer);
         const tdAvailableAroundPlayer = [];
+
+        //console.log(this.map);
 
         availableCellsAroundPlayer.forEach(availableCell => {
             tdAvailableAroundPlayer.push(`${availableCell.y}-${availableCell.x}`);
@@ -260,41 +280,59 @@ class Map {
             $(`td[data-yx="${td}"]`).addClass('move');
         });
 
-        //console.log(availableCellsAroundPlayer);
-        //console.log(tdAvailableAroundPlayer);
-
         return new Promise((resolve) => {
             $('.move').on('click', (element) => {
-                console.log(element);
+                // Define new coordinates
                 let newCoordinates = [];
                 newCoordinates = $(element.currentTarget).attr('data-yx').split('-');
-                console.log(newCoordinates);
 
-                if ($(this).hasClass("weapon")) {
-                    console.log("Weapon found !");
-                }
-
-                console.log(currentPlayer);
+                // Remove player of the DOM
                 $(`td[data-yx = "${currentPlayer.position.y}-${currentPlayer.position.x}"]`).removeClass('player').empty();
                 $('.move').off('click');
                 $('.move').removeClass('move');
 
+                // Remove the player of the old coordinates on the logic map
+                this.map[currentPlayer.position.y][currentPlayer.position.x].player = false;
+
+                // Apply new coordinates to the player
                 currentPlayer.position.x = parseInt(newCoordinates[1]);
                 currentPlayer.position.y = parseInt(newCoordinates[0]);
 
+                // Place the player on the new coordinates on the logic map
+                this.map[currentPlayer.position.y][currentPlayer.position.x].player = currentPlayer;
+
+                // Display player on new coordinates
                 element.currentTarget.classList.add("player");
                 $(element.currentTarget).append(`<img class="player player${currentPlayer.name}" src="${currentPlayer.picture}" alt="Joueur ${currentPlayer.name}">`);
 
+                //console.log($(this).el);
+                //console.log(this.map[currentPlayer.position.y][currentPlayer.position.x].weapon);
+                //console.log(currentPlayer);
+                //console.log(currentPlayerWeapon);
+                if (this.map[currentPlayer.position.y][currentPlayer.position.x].weapon) {
+                    console.log("Weapon found !");
+
+                    this.getWeaponAtPos(this.map[currentPlayer.position.y][currentPlayer.position.x]);
+
+                    this.setWeaponAtPos(this.map[currentPlayer.position.y][currentPlayer.position.x], currentPlayerWeapon);
+                }
                 resolve();
             });
         });
     }
 
-    // getWeaponAtPos(pos) {
-        //this.map
-    //}
+    getWeaponAtPos(position) {
+        return this.map[position.y][position.x].weapon;
 
-    // setWeaponAtPos(pos + weapon)
+        //console.log(position.weapon);
+        //console.log(currentPlayer);
+        //this.map[pos]
+    }
+
+    setWeaponAtPos(position, weapon) {
+        this.map[position.y][position.x].weapon = weapon;
+        console.log(position, weapon);
+    }
 
     getRandomNumberBetweenRange(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);

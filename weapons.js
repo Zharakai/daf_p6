@@ -13,4 +13,3 @@ const sabre = new Weapon("Sabre", "saber", 15, "./sprites/epee_rouge.png");
 const corbalame = new Weapon("Corbalame", "sword", 10, "./sprites/epee_blanche.png");
 
 const weapons = [goultard, raziel, sabre, corbalame];
-//console.log(weapons);
