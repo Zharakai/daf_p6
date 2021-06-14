@@ -129,6 +129,14 @@ class Map {
             console.log(this.map[cell.y - 1][cell.x]);
             console.log(this.map[cell.y - 1][cell.x - 1]);
             console.log(this.map[cell.y][cell.x - 1]);
+        } else if (cell.x === 0 && cell.y > 0 && cell.y < 10) {
+            console.log('left side');
+        } else if (cell.y === 0 && cell.x > 0 && cell.x < 10) {
+            console.log('up side');
+        } else if (cell.x === 10 && cell.y > 0 && cell.y < 10) {
+            console.log('right side');
+        } else if (cell.y === 10 && cell.x > 0 && cell.x < 10) {
+            console.log('bottom side');
         }
 
         //true | false
