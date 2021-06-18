@@ -2,7 +2,8 @@ class Game {
     constructor() {
         this.boot();
     }
-    boot(){
+
+    boot() {
         window.Game = this;
 
         this.players = [
@@ -39,7 +40,10 @@ class Game {
             await this.map.printMove();
             //this.map.clearAvailableMoveCells();
             // newPos
-            //
+            //console.log(window);
+            console.log(this.getCurrentPlayer().weapon);
+            //console.log(Player.setWeapon(this.getCurrentPlayer().weapon));
+            //console.log(this.getWeaponAtPos(this.map[currentPlayer.position.y][currentPlayer.position.x]));
             //this.getWeaponAtPos(this.map[currentPlayer.position.y][currentPlayer.position.x]);
             // 
             // this.setWeaponAtPos(this.map[currentPlayer.position.y][currentPlayer.position.x], currentPlayerWeapon);

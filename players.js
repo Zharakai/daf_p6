@@ -6,7 +6,21 @@ class Player {
         this.health = health;
         this.shield = shield
         this.position = position;
+
+        //this.boot();
     }
+
+    /*
+    boot() {
+        //console.log(this);
+        //window.Player = this;
+    }
+    */
+
+    setWeapon(weapon) {
+        console.log("setWeapon : ", weapon)
+        this.weapon = weapon;
+      }
 
     // displayPlayerCard() {}
 

@@ -76,9 +76,7 @@ class Map {
     }
 
     getValidRandomSpawnCell(iteration = 0) {
-        console.log("Starting getValidRandomSpawnCell", iteration);
         const cell = this.getAvailableRandomCell();
-        // Check 
 
         if (iteration > (this.rowsNumber * this.columnsNumber)) {
             throw new Error("Plus aucune case disponible");
@@ -114,18 +112,14 @@ class Map {
     }
 
     placePlayer(player) {
-        //console.log("Placement de :", player );
         const cell = this.getValidRandomSpawnCell();
-        //console.log("Joueur placé");
-        //console.log(cell); //this.getAvailableRandomCell(); 
-
         player.position = { x: cell.x, y: cell.y };
         this.map[cell.y][cell.x].player = player;
     }
 
     getAvailableCellsAroundPlayer(player) {
         availableCellsAroundPlayer = [];
-        //console.log(player);
+
         for (let i = 1; i < 4; i++) {
             if (player.position.x + i <= 10 && (this.map[player.position.y][player.position.x + i].wall || this.map[player.position.y][player.position.x + i].player)) {
                 break;
@@ -198,8 +192,6 @@ class Map {
         const availableCellsAroundPlayer = this.getAvailableCellsAroundPlayer(currentPlayer);
         const tdAvailableAroundPlayer = [];
 
-        //console.log(this.map);
-
         availableCellsAroundPlayer.forEach(availableCell => {
             tdAvailableAroundPlayer.push(`${availableCell.y}-${availableCell.x}`);
         });
@@ -233,10 +225,7 @@ class Map {
                 element.currentTarget.classList.add("player");
                 $(element.currentTarget).append(`<img class="player player${currentPlayer.name}" src="${currentPlayer.picture}" alt="Joueur ${currentPlayer.name}">`);
 
-                //console.log($(this).el);
-                //console.log(this.map[currentPlayer.position.y][currentPlayer.position.x].weapon);
-                //console.log(currentPlayer);
-                //console.log(currentPlayerWeapon);
+                // Detect weapon
                 if (this.map[currentPlayer.position.y][currentPlayer.position.x].weapon) {
                     console.log("Weapon found !");
 
