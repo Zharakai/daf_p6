@@ -1,6 +1,7 @@
 let map;
 let currentPlayer;
 let availableCellsAroundPlayer = [];
+let weaponFound = [];
 
 /**
  * @class
@@ -227,28 +228,31 @@ class Map {
 
                 // Detect weapon
                 if (this.map[currentPlayer.position.y][currentPlayer.position.x].weapon) {
-                    console.log("Weapon found !");
+                    //console.log("Weapon found !");
 
-                    this.getWeaponAtPos(this.map[currentPlayer.position.y][currentPlayer.position.x]);
+                    weaponFound.push(this.getWeaponAtPos(this.map[currentPlayer.position.y][currentPlayer.position.x]));
+                    //console.log(weaponFound);
 
                     this.setWeaponAtPos(this.map[currentPlayer.position.y][currentPlayer.position.x], currentPlayerWeapon);
+                    console.log(currentPlayer);
+
+                    //$(element.currentTarget).append(`<img class="weapon weapon${currentPlayer.weapon.name}" src="${currentPlayer.weapon.picture}" alt="Arme ${currentPlayer.weapon.name}">`);
                 }
+                console.log(weaponFound);
                 resolve();
             });
         });
     }
 
     getWeaponAtPos(position) {
-        return this.map[position.y][position.x].weapon;
+        //console.log(this.map[position.y][position.x].weapon);
 
-        //console.log(position.weapon);
-        //console.log(currentPlayer);
-        //this.map[pos]
+        return position.weapon;
     }
 
     setWeaponAtPos(position, weapon) {
         this.map[position.y][position.x].weapon = weapon;
-        console.log(position, weapon);
+        //console.log(position, weapon);
     }
 
     getRandomNumberBetweenRange(min, max) {
