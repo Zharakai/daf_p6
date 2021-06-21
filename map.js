@@ -105,6 +105,15 @@ class Map {
         );
     }
 
+    /*static*/ 
+    checkFightCells(cell) {
+        return !!(
+            this.map[cell.y - 1]?.[cell.x]?.player || 
+            this.map[cell.y]?.[cell.x - 1]?.player ||
+            this.map[cell.y + 1]?.[cell.x]?.player ||
+            this.map[cell.y]?.[cell.x + 1]?.player)
+    }
+
     generateWeapons() {
         for (let i = 0; i < this.weaponsCount; i++) {
             const cell = this.getAvailableRandomCell();
@@ -229,22 +238,23 @@ class Map {
 
                 // Detect weapon
                 if (this.map[currentPlayer.position.y][currentPlayer.position.x].weapon) {
-                    //console.log("Weapon found !");
                     $(element.currentTarget).children('img.weapon').remove();
-                    $(element.currentTarget).append(`<img class="weapon weapon${currentPlayer.weapon.name}" src="${currentPlayer.weapon.picture}" alt="Arme ${currentPlayer.weapon.name}">`)
+                    $(element.currentTarget).append(`<img class="weapon weapon${currentPlayer.weapon.name}" src="${currentPlayer.weapon.picture}" alt="Arme ${currentPlayer.weapon.name}">`);
                     console.log(currentPlayer.weapon);
 
                     weaponFound.push(this.getWeaponAtPos(this.map[currentPlayer.position.y][currentPlayer.position.x]));
-                    //console.log(weaponFound);
 
                     this.setWeaponAtPos(this.map[currentPlayer.position.y][currentPlayer.position.x], currentPlayerWeapon);
                     console.log(currentPlayer);
 
-                    //$(element.currentTarget).append(`<img class="weapon weapon${currentPlayer.weapon.name}" src="${currentPlayer.weapon.picture}" alt="Arme ${currentPlayer.weapon.name}">`);
                     console.log(this.map);
                     console.log($(element.currentTarget));
                 }
-                //console.log(weaponFound);
+
+                if (this.checkFightCells(this.map[currentPlayer.position.y][currentPlayer.position.x])) {
+                    alert("Combat ! 1 VS 1");
+                }
+                
                 resolve();
             });
         });
