@@ -208,7 +208,8 @@ class Map {
                 newCoordinates = $(element.currentTarget).attr('data-yx').split('-');
 
                 // Remove player of the DOM
-                $(`td[data-yx = "${currentPlayer.position.y}-${currentPlayer.position.x}"]`).removeClass('player').empty();
+                $(`td[data-yx = "${currentPlayer.position.y}-${currentPlayer.position.x}"]`).removeClass('player');
+                $(`td[data-yx = "${currentPlayer.position.y}-${currentPlayer.position.x}"]`).children('img.player').remove();
                 $('.move').off('click');
                 $('.move').removeClass('move');
 
@@ -229,6 +230,9 @@ class Map {
                 // Detect weapon
                 if (this.map[currentPlayer.position.y][currentPlayer.position.x].weapon) {
                     //console.log("Weapon found !");
+                    $(element.currentTarget).children('img.weapon').remove();
+                    $(element.currentTarget).append(`<img class="weapon weapon${currentPlayer.weapon.name}" src="${currentPlayer.weapon.picture}" alt="Arme ${currentPlayer.weapon.name}">`)
+                    console.log(currentPlayer.weapon);
 
                     weaponFound.push(this.getWeaponAtPos(this.map[currentPlayer.position.y][currentPlayer.position.x]));
                     //console.log(weaponFound);
@@ -237,8 +241,10 @@ class Map {
                     console.log(currentPlayer);
 
                     //$(element.currentTarget).append(`<img class="weapon weapon${currentPlayer.weapon.name}" src="${currentPlayer.weapon.picture}" alt="Arme ${currentPlayer.weapon.name}">`);
+                    console.log(this.map);
+                    console.log($(element.currentTarget));
                 }
-                console.log(weaponFound);
+                //console.log(weaponFound);
                 resolve();
             });
         });

@@ -9,7 +9,7 @@ class Player {
     }
 
     static setWeapon(weapon) {
-        console.log("setWeapon : ", weapon);
+        //console.log("setWeapon : ", weapon);
         currentPlayer.weapon = weapon;
       }
 

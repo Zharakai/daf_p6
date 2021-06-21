@@ -41,10 +41,11 @@ class Game {
             //this.map.clearAvailableMoveCells();
             // newPos
             if (weaponFound.length > 0) {
+                //this.getCurrentPlayer().Player.setWeapon(weaponFound[0]);
                 Player.setWeapon(weaponFound[0]);
                 weaponFound = [];
             }
-            console.log(this.map.map);
+            //console.log(this.map.map);
             //console.log(this.getCurrentPlayer().weapon);
             //console.log(Player.setWeapon(this.getCurrentPlayer().weapon));
             //console.log(this.getWeaponAtPos(this.map[currentPlayer.position.y][currentPlayer.position.x]));
