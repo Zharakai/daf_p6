@@ -97,14 +97,14 @@ img.weapon.weaponSabre, img.weapon.weaponCorbalame {
 }
 
 .versus {
-  opacity: 0;
+  opacity: 1;
   width: 50px;
 }
 
 /* Buttons */
 
 .buttonsPlay {
-  opacity: 0;
+  opacity: 1;
   display: flex;
   justify-content: space-evenly;
   width: 250px;

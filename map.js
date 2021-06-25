@@ -251,9 +251,11 @@ class Map {
                     console.log($(element.currentTarget));
                 }
 
+                /*
                 if (this.checkFightCells(this.map[currentPlayer.position.y][currentPlayer.position.x])) {
                     alert("Combat ! 1 VS 1");
                 }
+                */
                 
                 resolve();
             });
