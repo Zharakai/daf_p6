@@ -51,6 +51,7 @@ td {
   position: absolute;
   bottom: -20%;
   left: 50%;
+  pointer-events: none;
 }
 
 /* Weapons */
@@ -60,6 +61,7 @@ img.weapon {
   position: absolute;
   bottom: 5%;
   left: 50%;
+  pointer-events: none;
   /*animation: float 6s ease-in-out infinite;
   animation-delay: 450ms;*/
 }
@@ -78,7 +80,7 @@ img.weapon.weaponSabre, img.weapon.weaponCorbalame {
   display: flex;
   justify-content: space-between;
   position: absolute;
-  top: 5%;
+  top: 4%;
   width: -webkit-fill-available;
 }
 
@@ -123,5 +125,6 @@ img.weapon.weaponSabre, img.weapon.weaponCorbalame {
   cursor: pointer;
   transition: box-shadow 300ms;
   box-shadow: -3px 3px rgb(253, 168, 55);
-  border: 2px solid rgb(253, 168, 55)
+  border: 2px solid rgb(253, 168, 55);
+  /*transition: border 300ms;*/
 }

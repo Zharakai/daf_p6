@@ -8,13 +8,28 @@ class Player {
         this.position = position;
     }
 
+    displayPlayerCard(player) {
+        let playerCard = `
+            <div class="playerCard">
+                <p>${player.name}</p>
+                <p>Points de vie : ${player.health}</p>
+                <p>Points d'attaque : ${player.weapon.damage}</p>
+                <p>Bouclier : ${player.shield}</p>
+            </div>
+        `;
+
+        players.forEach((player) => {
+            //console.log(playerCard);
+            console.log(player);
+        });
+
+        console.log(playerCard);
+    }
+
     static setWeapon(weapon) {
         //console.log("setWeapon : ", weapon);
         currentPlayer.weapon = weapon;
       }
-
-    // displayPlayerCard() {}
-
     // getAllDamages() {}
 }
 
@@ -27,8 +42,4 @@ const players = [iop, steamer];
 let availableCellsAroundPlayerOne = [];
 let tdAvailableAroundPlayerOne = [];
 
-/*
-console.log(players);
-console.log(availableCellsAroundPlayerOne);
-console.log(tdAvailableAroundPlayerOne);
-*/
+//console.log(players);

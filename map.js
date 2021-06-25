@@ -240,22 +240,11 @@ class Map {
                 if (this.map[currentPlayer.position.y][currentPlayer.position.x].weapon) {
                     $(element.currentTarget).children('img.weapon').remove();
                     $(element.currentTarget).append(`<img class="weapon weapon${currentPlayer.weapon.name}" src="${currentPlayer.weapon.picture}" alt="Arme ${currentPlayer.weapon.name}">`);
-                    console.log(currentPlayer.weapon);
 
                     weaponFound.push(this.getWeaponAtPos(this.map[currentPlayer.position.y][currentPlayer.position.x]));
 
                     this.setWeaponAtPos(this.map[currentPlayer.position.y][currentPlayer.position.x], currentPlayerWeapon);
-                    console.log(currentPlayer);
-
-                    console.log(this.map);
-                    console.log($(element.currentTarget));
                 }
-
-                /*
-                if (this.checkFightCells(this.map[currentPlayer.position.y][currentPlayer.position.x])) {
-                    alert("Combat ! 1 VS 1");
-                }
-                */
                 
                 resolve();
             });
@@ -263,14 +252,11 @@ class Map {
     }
 
     getWeaponAtPos(position) {
-        //console.log(this.map[position.y][position.x].weapon);
-
         return position.weapon;
     }
 
     setWeaponAtPos(position, weapon) {
         this.map[position.y][position.x].weapon = weapon;
-        //console.log(position, weapon);
     }
 
     getRandomNumberBetweenRange(min, max) {
