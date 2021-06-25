@@ -32,7 +32,7 @@ class Game {
         this.playerTurn = +!this.playerTurn;
     }
 
-    /*
+    
     checkPlayersAside(cell) {
         return !!(
             map[cell.y - 1]?.[cell.x]?.player || 
@@ -40,7 +40,7 @@ class Game {
             map[cell.y + 1]?.[cell.x]?.player ||
             map[cell.y]?.[cell.x + 1]?.player)
     }
-    */
+    
     
     async gameLoop() {
         while (true) {
@@ -63,12 +63,11 @@ class Game {
 
             console.log(map[currentPlayer.position.y][currentPlayer.position.x]);
             console.log(currentPlayer);
-            
-            /*
+
             if (this.checkPlayersAside(map[currentPlayer.position.y][currentPlayer.position.x])) {
                 alert("Combat ! 1 VS 1");
             }
-            */
+            
             //console.log(this.map.map);
             //console.log(this.getCurrentPlayer().weapon);
             //console.log(Player.setWeapon(this.getCurrentPlayer().weapon));
