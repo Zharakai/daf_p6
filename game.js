@@ -65,6 +65,7 @@ class Game {
                     weaponFound = [];
                 }
 
+<<<<<<< HEAD
                 console.log(map[currentPlayer.position.y][currentPlayer.position.x]);
                 console.log(currentPlayer);
             }
@@ -72,10 +73,15 @@ class Game {
             
             
             /*
+=======
+            console.log(map[currentPlayer.position.y][currentPlayer.position.x]);
+            console.log(currentPlayer);
+
+>>>>>>> 1926d2ab7d5ad913793841bf7f38f6456d905375
             if (this.checkPlayersAside(map[currentPlayer.position.y][currentPlayer.position.x])) {
                 alert("Combat ! 1 VS 1");
             }
-            */
+            
             //console.log(this.map.map);
             //console.log(this.getCurrentPlayer().weapon);
             //console.log(Player.setWeapon(this.getCurrentPlayer().weapon));
