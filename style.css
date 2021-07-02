@@ -11,7 +11,7 @@ table {
 table, table * {
   transform-style: preserve-3d;
   backface-visibility: hidden;
-  margin-bottom: -8%;
+  margin-bottom: -2%;
 }
 
 td {

@@ -194,6 +194,14 @@ class Map {
             });
         });
         this.el.appendChild(tbody);
+
+        // Insert datas of players
+        $('.lifePointsPlayerOne').html(`${window.Game.players[0].health}`);
+        $('.lifePointsPlayerTwo').html(`${window.Game.players[1].health}`);
+        $('.damagePointsPlayerOne').html(`${window.Game.players[0].weapon.damage}`);
+        $('.damagePointsPlayerTwo').html(`${window.Game.players[1].weapon.damage}`);
+        $('.shieldPointsPlayerOne').html(`${window.Game.players[0].shield}`);
+        $('.shieldPointsPlayerTwo').html(`${window.Game.players[1].shield}`);
     }
 
     printMove() {

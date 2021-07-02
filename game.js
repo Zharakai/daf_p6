@@ -28,10 +28,13 @@ class Game {
         return this.players[this.playerTurn];
     }
 
+    getCurrentPlayerOpenent() {
+        return this.players[+!this.playerTurn];
+    }
+
     switchCurrentPlayerTurn() {
         this.playerTurn = +!this.playerTurn;
     }
-
     
     checkPlayersAside(cell) {
         return !!(
@@ -52,58 +55,103 @@ class Game {
     }
 
     askAction() {
-        // need to return promise to be able to use await on gameloop
+        // Return a promise to be able to use await on gameloop
         return new Promise((resolve, reject) => {
             const attackButton = $('.attackButton');
             const defendButton = $('.defendButton');
 
+            currentPlayer.shield = 0;
+
+            let shieldPointsPlayer;
+            if (this.playerTurn === 0) {
+                shieldPointsPlayer = $('.shieldPointsPlayerOne');
+            } else if (this.playerTurn === 1) {
+                shieldPointsPlayer = $('.shieldPointsPlayerTwo');
+            }
+            shieldPointsPlayer.html(`${currentPlayer.shield} %`);
+
             attackButton.off('click').on('click', () => {
-                // code ...
-                console.log("Attack");
-                const damage = currentPlayer.weapon.damage;
-                console.log(damage);
-                console.log(this.playerTurn);
+                const shieldPoints = this.getCurrentPlayerOpenent().shield / 100;
+                const damage = currentPlayer.weapon.damage - (currentPlayer.weapon.damage * shieldPoints);
+
                 if (this.playerTurn === 0) {
                     this.players[1].health -= damage
-                    console.log(this.players[1]);
+                    $('.lifePointsPlayerTwo').html(`${this.players[1].health}`);
                 } else if (this.playerTurn === 1) {
                     this.players[0].health -= damage
-                    console.log(this.players[0]);
+                    $('.lifePointsPlayerOne').html(`${this.players[0].health}`);
                 }
-                resolve(); // tells gameloop that this round is over;
+
+                resolve(); // For gameloop => round is over
             })
 
             defendButton.off('click').on('click', () => {
-                // code ...
-                console.log("Defend");
                 currentPlayer.shield = 50;
-                resolve(); // tells gameloop that this round is over;
+                shieldPointsPlayer.html(`${currentPlayer.shield} %`);
+
+                resolve(); // For gameloop => round is over
             })
         });
     }
+
+    isGameOver() {
+        //currentPlayer = this.getCurrentPlayer();
+        
+        this.players.forEach((player) => {
+            if (player.health <= 0) {
+                //alert("Partie terminée !");
+                console.log(currentPlayer);
+                console.log("Partie terminée");
+                $('.gameContainer').html(`
+                    <div class="winnerPresentation">
+                        <img class="player player${currentPlayer.name}" src="${currentPlayer.picture}" alt="Joueur ${currentPlayer.name}">
+                        <span>Partie terminée, le joueur x a gagné !</span>
+                    <div>`);
+                $('img.player').css('transform', 'initial').css('position', 'initial');
+                $('.winnerPresentation').css('display', 'flex').css('flex-direction', 'column').css('align-items', 'center');
+                return true;
+            }
+        });
+
+        return false;
+    }
     
     async gameLoop() {
-        while (true) {
+        while (!this.isGameOver()) {
+            //console.log(!this.isGameOver());
             currentPlayer = this.getCurrentPlayer();
 
+            //console.log(this.playerTurn);
+            if (this.playerTurn === 0) {
+                $('.playerCardTwo').css('background-color', 'rgb(189, 220, 255)');
+                $('.playerCardOne').css('background-color', 'rgba(240, 196, 196, 0.6)');
+            } else if (this.playerTurn === 1) {
+                $('.playerCardOne').css('background-color', 'rgb(189, 220, 255)');
+                $('.playerCardTwo').css('background-color', 'rgba(240, 196, 196, 0.6)');
+            }
+
             if (this.checkPlayersAside(map[currentPlayer.position.y][currentPlayer.position.x])) {
-                console.log(currentPlayer);
                 this.createFightVisual();
                 await this.askAction();
             } else {
                 await this.map.printMove();
-                //this.map.clearAvailableMoveCells();
-                // newPos
+
                 if (weaponFound.length > 0) {
-                    //this.getCurrentPlayer().Player.setWeapon(weaponFound[0]);
                     Player.setWeapon(weaponFound[0]);
                     weaponFound = [];
+
+                    let damagePointsPlayer;
+                    if (this.playerTurn === 0) {
+                        damagePointsPlayer = $('.damagePointsPlayerOne');
+                    } else if (this.playerTurn === 1) {
+                        damagePointsPlayer = $('.damagePointsPlayerTwo');
+                    }
+                    damagePointsPlayer.html(`${currentPlayer.weapon.damage}`);
                 }
             }
             
           this.switchCurrentPlayerTurn();
         }
-
     }
 }
 
