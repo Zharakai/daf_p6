@@ -196,6 +196,8 @@ class Map {
         this.el.appendChild(tbody);
 
         // Insert datas of players
+        $('.gamerNameOne').html(`${window.Game.players[0].name}`);
+        $('.gamerNameTwo').html(`${window.Game.players[1].name}`);
         $('.lifePointsPlayerOne').html(`${window.Game.players[0].health}`);
         $('.lifePointsPlayerTwo').html(`${window.Game.players[1].health}`);
         $('.damagePointsPlayerOne').html(`${window.Game.players[0].weapon.damage}`);
