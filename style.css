@@ -78,7 +78,7 @@ img.weapon.weaponSabre, img.weapon.weaponCorbalame {
 /* Player Card */
 
 .playerCardContainer {
-  font-size: 21px;
+  font-size: 26px;
   display: flex;
   justify-content: space-between;
   position: absolute;
@@ -135,4 +135,15 @@ img.weapon.weaponSabre, img.weapon.weaponCorbalame {
 
 .winnerPresentation {
   font-size: 30px;
+}
+
+.newGame {
+  background-color: coral;
+  padding: 2%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.newGame:hover {
+  background-color: rgba(255, 127, 80, 0.795);
 }

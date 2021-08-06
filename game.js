@@ -106,6 +106,7 @@ class Game {
                     <div class="winnerPresentation">
                         <img class="player player${currentPlayer.name}" src="${currentPlayer.picture}" alt="Joueur ${currentPlayer.name}">
                         <span>Partie terminée, le ${currentPlayer.name} a gagné !</span>
+                        <a class="newGame" href="index.html">Recommencer une partie</a>
                     <div>`);
                 $('.gameContainer').css('height', '97vh');
                 $('img.player').css('transform', 'initial').css('position', 'initial');

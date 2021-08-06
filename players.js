@@ -6,7 +6,6 @@ class Player {
         this.health = health;
         this.shield = shield
         this.position = position;
-        // this.defending = false | true;
     }
 
     static setWeapon(weapon) {
