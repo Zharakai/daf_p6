@@ -105,7 +105,6 @@ class Map {
         );
     }
 
-    /*static*/ 
     checkFightCells(cell) {
         return !!(
             this.map[cell.y - 1]?.[cell.x]?.player || 

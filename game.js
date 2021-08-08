@@ -95,13 +95,8 @@ class Game {
     }
 
     isGameOver() {
-        //currentPlayer = this.getCurrentPlayer();
-        
         this.players.forEach((player) => {
             if (player.health <= 0) {
-                //alert("Partie terminée !");
-                console.log(currentPlayer);
-                console.log("Partie terminée");
                 $('.gameContainer').html(`
                     <div class="winnerPresentation">
                         <img class="player player${currentPlayer.name}" src="${currentPlayer.picture}" alt="Joueur ${currentPlayer.name}">
@@ -120,10 +115,8 @@ class Game {
     
     async gameLoop() {
         while (!this.isGameOver()) {
-            //console.log(!this.isGameOver());
             currentPlayer = this.getCurrentPlayer();
 
-            //console.log(this.playerTurn);
             if (this.playerTurn === 0) {
                 $('.playerCardTwo').css('background-color', 'rgb(189, 220, 255)');
                 $('.playerCardOne').css('background-color', 'rgba(240, 196, 196, 0.6)');
@@ -151,7 +144,7 @@ class Game {
                     damagePointsPlayer.html(`${currentPlayer.weapon.damage}`);
                 }
             }
-            
+
           this.switchCurrentPlayerTurn();
         }
     }
